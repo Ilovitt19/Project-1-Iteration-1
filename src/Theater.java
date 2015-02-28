@@ -16,8 +16,8 @@ public class Theater {
 	   }
 	
 
-public Customer addCustomer(String name, String address, String phoneNumber, String creditCardNumber, Date creditCardExpiration, String customerId) {
-    Customer customer = new Customer(name, address, phoneNumber, creditCardNumber, creditCardExpiration, customerId);
+public Customer addCustomer(String name, String address, String phoneNumber, CreditCard card, String customerId) {
+    Customer customer = new Customer(name, address, phoneNumber, card, customerId);
     if (customerList.addCustomer(customer)) {
       return (customer);
     }

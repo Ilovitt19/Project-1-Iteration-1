@@ -8,26 +8,25 @@ public class Customer {
 	private String name;
 	private String address;
 	private String phoneNumber;
-	private String creditCardNumber;
-	private Date creditCardExpiration;
+	private CreditCard card;
 	private String customerId;
+	
 	private List creditCards = new LinkedList();
-	public Customer(String name, String address, String phoneNumber, String creditCardNumber, Date creditCardExpiration, String customerId) {
+	public Customer(String name, String address, String phoneNumber, CreditCard card, String customerId) {
 		
 		super();
 		this.name = name;
 		this.address = address;
 		this.phoneNumber = phoneNumber;
-		this.creditCardNumber = creditCardNumber;
-		this.creditCardExpiration = creditCardExpiration;
+		this.card = card;
 		this.customerId = customerId;
 	}
 	
 	public void removeCreditCard(String creditCardNumber) {
 		for (Iterator iterator = creditCards.iterator(); iterator.hasNext(); ) {
-		      Customer customer = (Customer) iterator.next();
-		      if (customer.getCustomerId().equals(customerId)) {
-		    	  creditCards.remove(customer);//this might not work
+		      CreditCard card = (CreditCard) iterator.next();
+		      if (card.getNumber().equals(creditCardNumber)) {
+		    	  creditCards.remove(card);//this might not work
 		      }
 		}
 }
@@ -55,21 +54,14 @@ public class Customer {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public String getCreditCardNumber() {
-		return creditCardNumber;
+	public CreditCard getCard() {
+		return card;
 	}
 
-	public void setCreditCardNumber(String creditCardNumber) {
-		this.creditCardNumber = creditCardNumber;
+	public void setCard(CreditCard card) {
+		this.card = card;
 	}
 
-	public Date getCreditCardExpiration() {
-		return creditCardExpiration;
-	}
-
-	public void setCreditCardExpiration(Date creditCardExpiration) {
-		this.creditCardExpiration = creditCardExpiration;
-	}
 
 	public String getCustomerId() {
 		return customerId;
