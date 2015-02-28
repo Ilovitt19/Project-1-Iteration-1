@@ -1,30 +1,36 @@
+import java.io.Serializable;
 import java.util.Date;
 
 
-public class Theater {
+public class Theater implements Serializable {
 	private CustomerList customerList;
-	
-	private static Theater instance = null;
-	   protected Theater() {
-	      
-	   }
-	   public static Theater getInstance() {
-	      if(instance == null) {
-	         instance = new Theater();
-	      }
-	      return instance;
-	   }
-	
+	private static Theater theater;
 
-public Customer addCustomer(String name, String address, String phoneNumber, String creditCardNumber, Date creditCardExpiration, String customerId) {
-    Customer customer = new Customer(name, address, phoneNumber, creditCardNumber, creditCardExpiration, customerId);
-    if (customerList.addCustomer(customer)) {
-      return (customer);
-    }
-    return null;
-  }
 
-public void removeCustomer(String customerId) {
-     customerList.remove(customerId);
+	private Theater(){
+		customerList = CustomerList.instance();
+	}
+
+	public static Theater instance(){
+		if (theater == null){
+			CustomerIdServer.instance();
+			ProducerIdServer.instance();
+			return (theater = new Theater());
+		}
+		else {
+			return theater;
+		}
+	}
+
+	public Customer addCustomer(String name, String address, String phoneNumber, String creditCardNumber, Date creditCardExpiration, String customerId) {
+    	Customer customer = new Customer(name, address, phoneNumber, creditCardNumber, creditCardExpiration, customerId);
+    	if (customerList.addCustomer(customer)) {
+      		return (customer);
+    	}
+    	return null;
+  	}
+
+	public void removeCustomer(String customerId) {
+     	customerList.remove(customerId);
   }
 }
