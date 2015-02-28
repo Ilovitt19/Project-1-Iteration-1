@@ -31,12 +31,23 @@ public void remove(String customerId) {
 	for (Iterator iterator = customers.iterator(); iterator.hasNext(); ) {
 	      Customer customer = (Customer) iterator.next();
 	      if (customer.getCustomerId().equals(customerId)) {
-	    	  customers.remove(customer);//this might not work
+	    	  customers.remove(customer);		//this might not work
 	    	  
 	      }
 	}
 	
 }
+
+public Customer search(String customerId) {
+    for (Iterator iterator = customers.iterator(); iterator.hasNext(); ) {
+      Customer customer = (Customer) iterator.next();
+      if (customer.getCustomerId().equals(customerId)) {
+        return customer;
+      }
+    }
+    return null;
+  }
+
 private void writeObject(java.io.ObjectOutputStream output) {
     try {
       output.defaultWriteObject();

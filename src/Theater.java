@@ -1,4 +1,5 @@
 import java.util.Date;
+import java.util.Iterator;
 
 
 public class Theater {
@@ -14,7 +15,6 @@ public class Theater {
 	      }
 	      return instance;
 	   }
-	
 
 public Customer addCustomer(String name, String address, String phoneNumber, CreditCard card, String customerId) {
     Customer customer = new Customer(name, address, phoneNumber, card, customerId);
@@ -23,7 +23,11 @@ public Customer addCustomer(String name, String address, String phoneNumber, Cre
     }
     return null;
   }
-
+public void addCreditCard(String customerId, String creditCardNumber, Date expirationDate){
+	CreditCard card = new CreditCard(creditCardNumber, expirationDate);
+	 Customer customer = customerList.search(customerId);
+	 customer.addCreditCard(card);
+}
 public void removeCustomer(String customerId) {
      customerList.remove(customerId);
   }

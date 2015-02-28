@@ -21,7 +21,10 @@ public class Customer {
 		this.card = card;
 		this.customerId = customerId;
 	}
-	
+	public void addCreditCard(CreditCard card) {
+		creditCards.add(card);
+		
+	}
 	public void removeCreditCard(String creditCardNumber) {
 		for (Iterator iterator = creditCards.iterator(); iterator.hasNext(); ) {
 		      CreditCard card = (CreditCard) iterator.next();
@@ -70,7 +73,6 @@ public class Customer {
 	public void setCustomerId(String customerId) {
 		this.customerId = customerId;
 	}
-
 	
 	}
 
