@@ -10,10 +10,10 @@ public class Customer {
 	private String phoneNumber;
 	private CreditCard card;
 	private String customerId;
-	
+
 	private List creditCards = new LinkedList();
 	public Customer(String name, String address, String phoneNumber, CreditCard card, String customerId) {
-		
+
 		super();
 		this.name = name;
 		this.address = address;
@@ -23,16 +23,16 @@ public class Customer {
 	}
 	public void addCreditCard(CreditCard card) {
 		creditCards.add(card);
-		
+
 	}
 	public void removeCreditCard(String creditCardNumber) {
 		for (Iterator iterator = creditCards.iterator(); iterator.hasNext(); ) {
-		      CreditCard card = (CreditCard) iterator.next();
-		      if (card.getNumber().equals(creditCardNumber)) {
-		    	  creditCards.remove(card);//this might not work
-		      }
+			CreditCard card = (CreditCard) iterator.next();
+			if (card.getNumber().equals(creditCardNumber)) {
+				creditCards.remove(card);//this might not work
+			}
 		}
-}
+	}
 	public String getName() {
 		return name;
 	}
@@ -73,6 +73,6 @@ public class Customer {
 	public void setCustomerId(String customerId) {
 		this.customerId = customerId;
 	}
-	
-	}
+
+}
 
