@@ -2,7 +2,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 
-public class Show {
+public class Show { //lalalala
 	private String showTitle;
 	private Producer producer;
 	private Calendar date;
