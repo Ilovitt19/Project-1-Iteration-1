@@ -21,7 +21,7 @@ import java.util.*;
 import java.text.*;
 import java.io.*;
 /**
- *
+ * UserInterface
  * This class implements the user interface for the Library project.
  * The commands are encoded as integers using a number of
  * static final variables. A number of utility methods exist to
@@ -31,20 +31,19 @@ import java.io.*;
 public class UserInterface {
 	private static UserInterface userInterface;
 	private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-	private static Library library;
+	private static Theater theater;
 	private static final int EXIT = 0;
-	private static final int ADD_MEMBER = 1;
-	private static final int ADD_BOOKS = 2;
-	private static final int ISSUE_BOOKS = 3;
-	private static final int RETURN_BOOKS = 4;
-	private static final int RENEW_BOOKS = 5;
-	private static final int REMOVE_BOOKS = 6;
-	private static final int PLACE_HOLD = 7;
-	private static final int REMOVE_HOLD = 8;
-	private static final int PROCESS_HOLD = 9;
-	private static final int GET_TRANSACTIONS = 10;
-	private static final int SAVE = 11;
-	private static final int RETRIEVE = 12;
+	private static final int ADD_PRODUCER = 1;
+	private static final int REMOVE_PRODUCER = 2;
+	private static final int LIST_PRODUCERS = 3;
+	private static final int ADD_CUSTOMER = 4;
+	private static final int REMOVE_CUSTOMER = 5;
+	private static final int ADD_CARD = 6;
+	private static final int REMOVE_CARD = 7;
+	private static final int LIST_CUSTOMERS = 8;
+	private static final int ADD_SHOW = 9;
+	private static final int LIST_SHOWS = 10;
+	private static final int STORE_DATA = 11;
 	private static final int HELP = 13;
 	/**
 	 * Made private for singleton pattern.
@@ -55,7 +54,7 @@ public class UserInterface {
 		if (yesOrNo("Look for saved data and  use it?")) {
 			retrieve();
 		} else {
-			library = Library.instance();
+			theater = Theater.instance();
 		}
 	}
 	/**
@@ -163,20 +162,19 @@ public class UserInterface {
 	 *
 	 */
 	public void help() {
-		System.out.println("Enter a number between 0 and 12 as explained below:");
+		System.out.println("Enter a number between 0 and 13 (not 12) as explained below:");
 		System.out.println(EXIT + " to Exit\n");
-		System.out.println(ADD_MEMBER + " to add a member");
-		System.out.println(ADD_BOOKS + " to  add books");
-		System.out.println(ISSUE_BOOKS + " to  issue books to a  member");
-		System.out.println(RETURN_BOOKS + " to  return books ");
-		System.out.println(RENEW_BOOKS + " to  renew books ");
-		System.out.println(REMOVE_BOOKS + " to  remove books");
-		System.out.println(PLACE_HOLD + " to  place a hold on a book");
-		System.out.println(REMOVE_HOLD + " to  remove a hold on a book");
-		System.out.println(PROCESS_HOLD + " to  process holds");
-		System.out.println(GET_TRANSACTIONS + " to  print transactions");
-		System.out.println(SAVE + " to  save data");
-		System.out.println(RETRIEVE + " to  retrieve");
+		System.out.println(ADD_PRODUCER + " to add a member");
+		System.out.println(REMOVE_PRODUCER + " to  add books");
+		System.out.println(LIST_PRODUCERS + " to  issue books to a  member");
+		System.out.println(ADD_CUSTOMER + " to  return books ");
+		System.out.println(REMOVE_CUSTOMER + " to  renew books ");
+		System.out.println(ADD_CARD + " to  remove books");
+		System.out.println(REMOVE_CARD + " to  place a hold on a book");
+		System.out.println(LIST_CUSTOMERS + " to  remove a hold on a book");
+		System.out.println(ADD_SHOW + " to  process holds");
+		System.out.println(LIST_SHOWS + " to  print transactions");
+		System.out.println(STORE_DATA + " to  save data");
 		System.out.println(HELP + " for help");
 	}
 	/**
@@ -185,8 +183,8 @@ public class UserInterface {
 	 * uses the appropriate Library method for adding the member.
 	 *
 	 */
-	public void addMember() {
-		String name = getToken("Enter member name");
+	public void addCustomer() {
+		String name = getToken("Enter customer name");
 		String address = getToken("Enter address");
 		String phone = getToken("Enter phone");
 		Member result;
@@ -441,8 +439,8 @@ public class UserInterface {
 	 *
 	 */
 	private void save() {
-		if (library.save()) {
-			System.out.println(" The library has been successfully saved in the file LibraryData \n" );
+		if (theater.save()) {
+			System.out.println(" The theater has been successfully saved in the file TheaterData \n" );
 		} else {
 			System.out.println(" There has been an error in saving \n" );
 		}
@@ -454,13 +452,13 @@ public class UserInterface {
 	 */
 	private void retrieve() {
 		try {
-			Library tempLibrary = Library.retrieve();
-			if (tempLibrary != null) {
-				System.out.println(" The library has been successfully retrieved from the file LibraryData \n" );
-				library = tempLibrary;
+			Theater tempTheater = Theater.retrieve();
+			if (tempTheater != null) {
+				System.out.println(" The theater has been successfully retrieved from the file TheaterData \n" );
+				theater = tempTheater;
 			} else {
-				System.out.println("File doesnt exist; creating new library" );
-				library = Library.instance();
+				System.out.println("File doesn't exist; creating new library" );
+				theater = Theater.instance();
 			}
 		} catch(Exception cnfe) {
 			cnfe.printStackTrace();
@@ -476,29 +474,27 @@ public class UserInterface {
 		help();
 		while ((command = getCommand()) != EXIT) {
 			switch (command) {
-				case ADD_MEMBER:        addMember();
+				case ADD_PRODUCER:        addMember();
 					break;
-				case ADD_BOOKS:         addBooks();
+				case REMOVE_PRODUCER:         addBooks();
 					break;
-				case ISSUE_BOOKS:       issueBooks();
+				case LIST_PRODUCERS:       issueBooks();
 					break;
-				case RETURN_BOOKS:      returnBooks();
+				case ADD_CUSTOMER:      returnBooks();
 					break;
-				case REMOVE_BOOKS:      removeBooks();
+				case REMOVE_CUSTOMER:      removeBooks();
 					break;
-				case RENEW_BOOKS:       renewBooks();
+				case ADD_CARD:       renewBooks();
 					break;
-				case PLACE_HOLD:        placeHold();
+				case REMOVE_CARD:        placeHold();
 					break;
-				case REMOVE_HOLD:       removeHold();
+				case LIST_CUSTOMERS:       removeHold();
 					break;
-				case PROCESS_HOLD:      processHolds();
+				case ADD_SHOW:      processHolds();
 					break;
-				case GET_TRANSACTIONS:  getTransactions();
+				case LIST_SHOWS:  getTransactions();
 					break;
-				case SAVE:              save();
-					break;
-				case RETRIEVE:          retrieve();
+				case STORE_DATA:              save();
 					break;
 				case HELP:              help();
 					break;
