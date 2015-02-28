@@ -16,11 +16,15 @@ public class Theater {
 	   }
 	
 
-public Customer addMember(String name, String address, String phoneNumber, int creditCardNumber, Date creditCardExpiration, int customerId) {
+public Customer addCustomer(String name, String address, String phoneNumber, String creditCardNumber, Date creditCardExpiration, String customerId) {
     Customer customer = new Customer(name, address, phoneNumber, creditCardNumber, creditCardExpiration, customerId);
     if (customerList.addCustomer(customer)) {
       return (customer);
     }
     return null;
+  }
+
+public void removeCustomer(String customerId) {
+     customerList.remove(customerId);
   }
 }
