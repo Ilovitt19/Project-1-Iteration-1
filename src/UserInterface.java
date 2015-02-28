@@ -21,7 +21,7 @@ import java.util.*;
 import java.text.*;
 import java.io.*;
 /**
- *
+ * UserInterface
  * This class implements the user interface for the Library project.
  * The commands are encoded as integers using a number of
  * static final variables. A number of utility methods exist to
