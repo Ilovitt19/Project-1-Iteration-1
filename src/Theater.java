@@ -9,7 +9,12 @@ public class Theater implements Serializable {
 	private static Theater instance = null;
 	protected Theater() {
 	private static Theater theater;
-
+	
+	public void addCreditCard(String customerId, String creditCardNumber, Date expirationDate){
+		CreditCard card = new CreditCard(creditCardNumber, expirationDate);
+		Customer customer = customerList.search(customerId);
+		customer.addCreditCard(card);
+	}
 
 	public Customer addCustomer(String name, String address, String phoneNumber, CreditCard card, String customerId) {
 		Customer customer = new Customer(name, address, phoneNumber, card, customerId);
