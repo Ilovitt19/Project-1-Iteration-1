@@ -1,20 +1,15 @@
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Iterator;
 
 
-public class Theater {
+public class Theater implements Serializable {
 	private CustomerList customerList;
 
 	private static Theater instance = null;
 	protected Theater() {
+	private static Theater theater;
 
-	}
-	public static Theater getInstance() {
-		if(instance == null) {
-			instance = new Theater();
-		}
-		return instance;
-	}
 
 	public Customer addCustomer(String name, String address, String phoneNumber, CreditCard card, String customerId) {
 		Customer customer = new Customer(name, address, phoneNumber, card, customerId);
@@ -24,12 +19,26 @@ public class Theater {
 		return null;
 	}
 
-	public void addCreditCard(String customerId, String creditCardNumber, Date expirationDate){
-		CreditCard card = new CreditCard(creditCardNumber, expirationDate);
-		Customer customer = customerList.search(customerId);
-		customer.addCreditCard(card);
-	}
 	public void removeCustomer(String customerId) {
 		customerList.removeCustomer(customerId);
 	}
+	private Theater(){
+		customerList = CustomerList.instance();
+	}
+
+	public static Theater instance(){
+		if (theater == null){
+			CustomerIdServer.instance();
+			ProducerIdServer.instance();
+			return (theater = new Theater());
+		}
+		else {
+			return theater;
+		}
+	
+
+	
+  	}
+
+	
 }
