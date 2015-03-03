@@ -199,8 +199,11 @@ public class UserInterface {
 		String name = getToken("Enter customer name");
 		String address = getToken("Enter address");
 		String phone = getToken("Enter phone");
+		String cardNumber = getToken("Enter Credit Card Number: ");
+		String date = getToken("Enter Credit Card Expiration Date: ");
+		CreditCard card = new CreditCard(cardNumber, date);
 		Customer result;
-		result = Theater.addCustomer(name, address, phone);
+		result = Theater.addCustomer(name, address, phone, card);
 		if (result == null) {
 			System.out.println("Could not add member");
 		}

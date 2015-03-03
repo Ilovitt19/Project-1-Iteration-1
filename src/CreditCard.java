@@ -3,9 +3,9 @@ import java.util.Date;
 
 public class CreditCard {
 	private String number;
-	private Date expirationDate;
+	private String expirationDate;
 	
-	public CreditCard(String number, Date expirationDate) {
+	public CreditCard(String number, String expirationDate) {
 		super();
 		this.number = number;
 		this.expirationDate = expirationDate;
@@ -19,11 +19,11 @@ public class CreditCard {
 		this.number = number;
 	}
 
-	public Date getExpirationDate() {
+	public String getExpirationDate() {
 		return expirationDate;
 	}
 
-	public void setExpirationDate(Date expirationDate) {
+	public void setExpirationDate(String expirationDate) {
 		this.expirationDate = expirationDate;
 	}
 	

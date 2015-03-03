@@ -42,8 +42,8 @@ public class Theater implements Serializable {
 
 	}
 
-	public Customer addCustomer(String name, String address, String phoneNumber, CreditCard card, String customerId) {
-		Customer customer = new Customer(name, address, phoneNumber, card, customerId);
+	public Customer addCustomer(String name, String address, String phoneNumber, CreditCard card) {
+		Customer customer = new Customer(name, address, phoneNumber, card);
 		if (customerList.addCustomer(customer)) {
 			return (customer);
 		}
@@ -54,7 +54,7 @@ public class Theater implements Serializable {
 		customerList.removeCustomer(customerId);
 	}
 
-	public void addCreditCard(String customerId, String creditCardNumber, Date expirationDate){
+	public void addCreditCard(String customerId, String creditCardNumber, String expirationDate){
 		CreditCard card = new CreditCard(creditCardNumber, expirationDate);
 		Customer customer = customerList.search(customerId);
 		customer.addCreditCard(card);
@@ -85,7 +85,7 @@ public class Theater implements Serializable {
 			FileInputStream file = new FileInputStream("TheaterData");
 			ObjectInputStream input = new ObjectInputStream(file);
 			input.readObject();
-			MemberIdServer.retrieve(input);
+			CustomerIdServer.retrieve(input);
 			return theater;
 		} catch(IOException ioe) {
 			ioe.printStackTrace();
@@ -101,7 +101,7 @@ public class Theater implements Serializable {
 			FileOutputStream file = new FileOutputStream("TheaterData");
 			ObjectOutputStream output = new ObjectOutputStream(file);
 			output.writeObject(theater);
-			output.writeObject(MemberIdServer.instance());
+			output.writeObject(CustomerIdServer.instance());
 			return true;
 		} catch(IOException ioe) {
 			ioe.printStackTrace();

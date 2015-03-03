@@ -13,7 +13,7 @@ public class Customer {
 
 	private List creditCards = new LinkedList();
 	
-	public Customer(String name, String address, String phoneNumber, CreditCard card, String customerId) {
+	public Customer(String name, String address, String phoneNumber, CreditCard card) {
 
 		super();
 		this.name = name;
