@@ -5,23 +5,23 @@ import java.util.Iterator;
 
 public class Theater implements Serializable {
 	private CustomerList customerList;
-
+	private ShowList showList;
 	private static Theater theater;
-	 
-	  private Theater() {
-	    
-	    customerList = CustomerList.instance();
-	  }
-	 
-	  public static Theater instance() {
-	    if (theater == null) {
-	    	ProducerIdServer.instance(); // instantiate all singletons
-	      return (theater = new Theater());
-	    } else {
-	      return theater;
-	    }
-	  }
-	
+
+	private Theater() {
+
+		customerList = CustomerList.instance();
+	}
+
+	public static Theater instance() {
+		if (theater == null) {
+			ProducerIdServer.instance(); // instantiate all singletons
+			return (theater = new Theater());
+		} else {
+			return theater;
+		}
+	}
+
 	public void addCreditCard(String customerId, String creditCardNumber, Date expirationDate){
 		CreditCard card = new CreditCard(creditCardNumber, expirationDate);
 		Customer customer = customerList.search(customerId);
@@ -38,11 +38,16 @@ public class Theater implements Serializable {
 
 	public void removeCustomer(String customerId) {
 		customerList.removeCustomer(customerId);
+	}
+	public Show addShow(String title, Producer producer, int duration) {
+		Show show = new Show(title, producer, duration);
+		if(showList.insertShow(show)) {
+			return (show);
+		}else{
+			return null;
+		}
+	}
 	
-	
-
-	
-  	}
-
-	
+	public void listShows(){
+	}
 }

@@ -187,13 +187,27 @@ public class UserInterface {
 		String name = getToken("Enter customer name");
 		String address = getToken("Enter address");
 		String phone = getToken("Enter phone");
-		Member result;
-		result = library.addMember(name, address, phone);
+		Customer result;
+		result = Theater.addCustomer(name, address, phone);
 		if (result == null) {
 			System.out.println("Could not add member");
 		}
 		System.out.println(result);
 	}
+	
+	public void addShow() {
+		String title = getToken("Enter show title");
+		String producer = getToken("Enter producer");
+		String duration = getToken("Enter duration");
+		Show result;
+		result = Theater.addShow(title, producer, duration);
+		if (result == null) {
+			System.out.println("Could not add show");
+		}
+		System.out.println(result);
+	}
+	
+	
 	/**
 	 * Method to be called for adding a book.
 	 * Prompts the user for the appropriate values and
@@ -206,7 +220,7 @@ public class UserInterface {
 			String title = getToken("Enter  title");
 			String bookID = getToken("Enter id");
 			String author = getToken("Enter author");
-			result = library.addBook(title, author, bookID);
+			result = Theater.addBook(title, author, bookID);
 			if (result != null) {
 				System.out.println(result);
 			} else {
@@ -226,13 +240,13 @@ public class UserInterface {
 	public void issueBooks() {
 		Book result;
 		String memberID = getToken("Enter member id");
-		if (library.searchMembership(memberID) == null) {
+		if (Theater.searchMembership(memberID) == null) {
 			System.out.println("No such member");
 			return;
 		}
 		do {
 			String bookID = getToken("Enter book id");
-			result = library.issueBook(memberID, bookID);
+			result = Theater.issueBook(memberID, bookID);
 			if (result != null){
 				System.out.println(result.getTitle()+ "   " +  result.getDueDate());
 			} else {
@@ -252,15 +266,15 @@ public class UserInterface {
 	public void renewBooks() {
 		Book result;
 		String memberID = getToken("Enter member id");
-		if (library.searchMembership(memberID) == null) {
+		if (Theater.searchMembership(memberID) == null) {
 			System.out.println("No such member");
 			return;
 		}
-		Iterator issuedBooks = library.getBooks(memberID);
+		Iterator issuedBooks = Theater.getBooks(memberID);
 		while (issuedBooks.hasNext()){
 			Book book = (Book)(issuedBooks.next());
 			if (yesOrNo(book.getTitle())) {
-				result = library.renewBook(book.getId(), memberID);
+				result = Theater.renewBook(book.getId(), memberID);
 				if (result != null){
 					System.out.println(result.getTitle()+ "   " + result.getDueDate());
 				} else {
@@ -279,21 +293,21 @@ public class UserInterface {
 		int result;
 		do {
 			String bookID = getToken("Enter book id");
-			result = library.returnBook(bookID);
+			result = Theater.returnBook(bookID);
 			switch(result) {
-				case Library.BOOK_NOT_FOUND:
+				case Theater.BOOK_NOT_FOUND:
 					System.out.println("No such Book in Library");
 					break;
-				case Library.BOOK_NOT_ISSUED:
+				case Theater.BOOK_NOT_ISSUED:
 					System.out.println(" Book  was not checked out");
 					break;
-				case Library.BOOK_HAS_HOLD:
+				case Theater.BOOK_HAS_HOLD:
 					System.out.println("Book has a hold");
 					break;
-				case Library.OPERATION_FAILED:
+				case Theater.OPERATION_FAILED:
 					System.out.println("Book could not be returned");
 					break;
-				case Library.OPERATION_COMPLETED:
+				case Theater.OPERATION_COMPLETED:
 					System.out.println(" Book has been returned");
 					break;
 				default:
@@ -314,21 +328,21 @@ public class UserInterface {
 		int result;
 		do {
 			String bookID = getToken("Enter book id");
-			result = library.removeBook(bookID);
+			result = Theater.removeBook(bookID);
 			switch(result){
-				case Library.BOOK_NOT_FOUND:
+				case Theater.BOOK_NOT_FOUND:
 					System.out.println("No such Book in Library");
 					break;
-				case Library.BOOK_ISSUED:
+				case Theater.BOOK_ISSUED:
 					System.out.println(" Book is currently checked out");
 					break;
-				case Library.BOOK_HAS_HOLD:
+				case Theater.BOOK_HAS_HOLD:
 					System.out.println("Book has a hold");
 					break;
-				case Library.OPERATION_FAILED:
+				case Theater.OPERATION_FAILED:
 					System.out.println("Book could not be removed");
 					break;
-				case Library.OPERATION_COMPLETED:
+				case Theater.OPERATION_COMPLETED:
 					System.out.println(" Book has been removed");
 					break;
 				default:
@@ -349,18 +363,18 @@ public class UserInterface {
 		String memberID = getToken("Enter member id");
 		String bookID = getToken("Enter book id");
 		int duration = getNumber("Enter duration of hold");
-		int result = library.placeHold(memberID, bookID, duration);
+		int result = Theater.placeHold(memberID, bookID, duration);
 		switch(result){
-			case Library.BOOK_NOT_FOUND:
+			case Theater.BOOK_NOT_FOUND:
 				System.out.println("No such Book in Library");
 				break;
-			case Library.BOOK_NOT_ISSUED:
+			case Theater.BOOK_NOT_ISSUED:
 				System.out.println(" Book is not checked out");
 				break;
-			case Library.NO_SUCH_MEMBER:
+			case Theater.NO_SUCH_MEMBER:
 				System.out.println("Not a valid member ID");
 				break;
-			case Library.HOLD_PLACED:
+			case Theater.HOLD_PLACED:
 				System.out.println("A hold has been placed");
 				break;
 			default:
@@ -376,15 +390,15 @@ public class UserInterface {
 	public void removeHold() {
 		String memberID = getToken("Enter member id");
 		String bookID = getToken("Enter book id");
-		int result = library.removeHold(memberID, bookID);
+		int result = Theater.removeHold(memberID, bookID);
 		switch(result){
-			case Library.BOOK_NOT_FOUND:
+			case Theater.BOOK_NOT_FOUND:
 				System.out.println("No such Book in Library");
 				break;
-			case Library.NO_SUCH_MEMBER:
+			case Theater.NO_SUCH_MEMBER:
 				System.out.println("Not a valid member ID");
 				break;
-			case Library.OPERATION_COMPLETED:
+			case Theater.OPERATION_COMPLETED:
 				System.out.println("The hold has been removed");
 				break;
 			default:
@@ -401,7 +415,7 @@ public class UserInterface {
 		Member result;
 		do {
 			String bookID = getToken("Enter book id");
-			result = library.processHold(bookID);
+			result = Theater.processHold(bookID);
 			if (result != null) {
 				System.out.println(result);
 			} else {
@@ -422,7 +436,7 @@ public class UserInterface {
 		Iterator result;
 		String memberID = getToken("Enter member id");
 		Calendar date  = getDate("Please enter the date for which you want records as mm/dd/yy");
-		result = library.getTransactions(memberID,date);
+		result = Theater.getTransactions(memberID,date);
 		if (result == null) {
 			System.out.println("Invalid Member ID");
 		} else {

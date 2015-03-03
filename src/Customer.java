@@ -12,6 +12,7 @@ public class Customer {
 	private String customerId;
 
 	private List creditCards = new LinkedList();
+	
 	public Customer(String name, String address, String phoneNumber, CreditCard card, String customerId) {
 
 		super();
