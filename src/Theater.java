@@ -9,10 +9,21 @@ import java.util.Iterator;
 
 
 public class Theater implements Serializable {
+	  public static final int PRODUCER_NOT_FOUND  = 1;
+	  //public static final int BOOK_NOT_ISSUED  = 2;
+	  //public static final int BOOK_HAS_HOLD  = 3;
+	 // public static final int BOOK_ISSUED  = 4;
+	 // public static final int HOLD_PLACED  = 5;
+	 // public static final int NO_HOLD_FOUND  = 6;
+	  public static final int OPERATION_COMPLETED = 7;
+	  public static final int OPERATION_FAILED= 8;
+	  //public static final int NO_SUCH_MEMBER = 9;
+	
 	private CustomerList customerList;
 	private ShowList showList;
-	private static Theater theater;
 	private ProducerList producerList;
+	private static Theater theater;
+	
 
 	private Theater() {
 		showList = ShowList.instance();
@@ -30,12 +41,24 @@ public class Theater implements Serializable {
 	}
 	//
 
-	public void addProducer() {
+	public Producer addProducer(String name, String address, String phone) {
+		Producer producer = new Producer(name, address, phone);
+	    if (producerList.insertProducer(producer)) {
+	      return (producer);
+	    }
+	    return null;
+	  }
 
-	}
 
-	public void removeProducer() {
-
+	public void removeProducer(String producerId) {
+	    Producer producer = theater.search(producerId);
+	    if (producer == null) {
+	      return(PRODUCER_NOT_FOUND);
+	    }
+	    if (catalog.removeBook(bookId)) {
+	      return (OPERATION_COMPLETED);
+	    }
+	    return (OPERATION_FAILED);
 	}
 
 	public void listProducers() {
