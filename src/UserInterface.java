@@ -164,16 +164,16 @@ public class UserInterface {
 	public void help() {
 		System.out.println("Enter a number between 0 and 13 (not 12) as explained below:");
 		System.out.println(EXIT + " to Exit\n");
-		System.out.println(ADD_PRODUCER + " to add a member");
-		System.out.println(REMOVE_PRODUCER + " to  add books");
-		System.out.println(LIST_PRODUCERS + " to  issue books to a  member");
-		System.out.println(ADD_CUSTOMER + " to  return books ");
-		System.out.println(REMOVE_CUSTOMER + " to  renew books ");
-		System.out.println(ADD_CARD + " to  remove books");
-		System.out.println(REMOVE_CARD + " to  place a hold on a book");
-		System.out.println(LIST_CUSTOMERS + " to  remove a hold on a book");
-		System.out.println(ADD_SHOW + " to  process holds");
-		System.out.println(LIST_SHOWS + " to  print transactions");
+		System.out.println(ADD_PRODUCER + " to add a producer");
+		System.out.println(REMOVE_PRODUCER + " to remove producer");
+		System.out.println(LIST_PRODUCERS + " to list all producers");
+		System.out.println(ADD_CUSTOMER + " to add a customer");
+		System.out.println(REMOVE_CUSTOMER + " to remove a cusomer");
+		System.out.println(ADD_CARD + " to add a credit card");
+		System.out.println(REMOVE_CARD + " to remove a credit card");
+		System.out.println(LIST_CUSTOMERS + " to list all customers");
+		System.out.println(ADD_SHOW + " to add a show");
+		System.out.println(LIST_SHOWS + " to list all shows");
 		System.out.println(STORE_DATA + " to  save data");
 		System.out.println(HELP + " for help");
 	}
@@ -183,6 +183,18 @@ public class UserInterface {
 	 * uses the appropriate Library method for adding the member.
 	 *
 	 */
+	public void addProducer() {
+		
+	}
+	
+	public void removeProducer() {
+		
+	}
+	
+	public void listProducers() {
+		
+	}
+	
 	public void addCustomer() {
 		String name = getToken("Enter customer name");
 		String address = getToken("Enter address");
@@ -195,258 +207,40 @@ public class UserInterface {
 		System.out.println(result);
 	}
 	
+	public void removeCustomer() {
+		
+	}
+	
+	public void addCreditCard() {
+		
+	}
+	
+	public void removeCreditCard() {
+		
+	}
+	
+	public void listCustomers() {
+		
+	}
+	
 	public void addShow() {
 		String title = getToken("Enter show title");
 		String producer = getToken("Enter producer");
 		String duration = getToken("Enter duration");
 		Show result;
-		result = Theater.addShow(title, producer, duration);
+		result = Theater.addShow(title, producer, Integer.parseInt(duration));
 		if (result == null) {
 			System.out.println("Could not add show");
 		}
 		System.out.println(result);
 	}
 	
+	public void listShows() {
+		
+	}
 	
-	/**
-	 * Method to be called for adding a book.
-	 * Prompts the user for the appropriate values and
-	 * uses the appropriate Library method for adding the book.
-	 *
-	 */
-	public void addBooks() {
-		Book result;
-		do {
-			String title = getToken("Enter  title");
-			String bookID = getToken("Enter id");
-			String author = getToken("Enter author");
-			result = Theater.addBook(title, author, bookID);
-			if (result != null) {
-				System.out.println(result);
-			} else {
-				System.out.println("Book could not be added");
-			}
-			if (!yesOrNo("Add more books?")) {
-				break;
-			}
-		} while (true);
-	}
-	/**
-	 * Method to be called for issuing books.
-	 * Prompts the user for the appropriate values and
-	 * uses the appropriate Library method for issuing books.
-	 *
-	 */
-	public void issueBooks() {
-		Book result;
-		String memberID = getToken("Enter member id");
-		if (Theater.searchMembership(memberID) == null) {
-			System.out.println("No such member");
-			return;
-		}
-		do {
-			String bookID = getToken("Enter book id");
-			result = Theater.issueBook(memberID, bookID);
-			if (result != null){
-				System.out.println(result.getTitle()+ "   " +  result.getDueDate());
-			} else {
-				System.out.println("Book could not be issued");
-			}
-			if (!yesOrNo("Issue more books?")) {
-				break;
-			}
-		} while (true);
-	}
-	/**
-	 * Method to be called for renewing books.
-	 * Prompts the user for the appropriate values and
-	 * uses the appropriate Library method for renewing books.
-	 *
-	 */
-	public void renewBooks() {
-		Book result;
-		String memberID = getToken("Enter member id");
-		if (Theater.searchMembership(memberID) == null) {
-			System.out.println("No such member");
-			return;
-		}
-		Iterator issuedBooks = Theater.getBooks(memberID);
-		while (issuedBooks.hasNext()){
-			Book book = (Book)(issuedBooks.next());
-			if (yesOrNo(book.getTitle())) {
-				result = Theater.renewBook(book.getId(), memberID);
-				if (result != null){
-					System.out.println(result.getTitle()+ "   " + result.getDueDate());
-				} else {
-					System.out.println("Book is not renewable");
-				}
-			}
-		}
-	}
-	/**
-	 * Method to be called for returning books.
-	 * Prompts the user for the appropriate values and
-	 * uses the appropriate Library method for returning books.
-	 *
-	 */
-	public void returnBooks() {
-		int result;
-		do {
-			String bookID = getToken("Enter book id");
-			result = Theater.returnBook(bookID);
-			switch(result) {
-				case Theater.BOOK_NOT_FOUND:
-					System.out.println("No such Book in Library");
-					break;
-				case Theater.BOOK_NOT_ISSUED:
-					System.out.println(" Book  was not checked out");
-					break;
-				case Theater.BOOK_HAS_HOLD:
-					System.out.println("Book has a hold");
-					break;
-				case Theater.OPERATION_FAILED:
-					System.out.println("Book could not be returned");
-					break;
-				case Theater.OPERATION_COMPLETED:
-					System.out.println(" Book has been returned");
-					break;
-				default:
-					System.out.println("An error has occurred");
-			}
-			if (!yesOrNo("Return more books?")) {
-				break;
-			}
-		} while (true);
-	}
-	/**
-	 * Method to be called for removing books.
-	 * Prompts the user for the appropriate values and
-	 * uses the appropriate Library method for removing books.
-	 *
-	 */
-	public void removeBooks() {
-		int result;
-		do {
-			String bookID = getToken("Enter book id");
-			result = Theater.removeBook(bookID);
-			switch(result){
-				case Theater.BOOK_NOT_FOUND:
-					System.out.println("No such Book in Library");
-					break;
-				case Theater.BOOK_ISSUED:
-					System.out.println(" Book is currently checked out");
-					break;
-				case Theater.BOOK_HAS_HOLD:
-					System.out.println("Book has a hold");
-					break;
-				case Theater.OPERATION_FAILED:
-					System.out.println("Book could not be removed");
-					break;
-				case Theater.OPERATION_COMPLETED:
-					System.out.println(" Book has been removed");
-					break;
-				default:
-					System.out.println("An error has occurred");
-			}
-			if (!yesOrNo("Remove more books?")) {
-				break;
-			}
-		} while (true);
-	}
-	/**
-	 * Method to be called for placing a hold.
-	 * Prompts the user for the appropriate values and
-	 * uses the appropriate Library method for placing a hold.
-	 *
-	 */
-	public void placeHold() {
-		String memberID = getToken("Enter member id");
-		String bookID = getToken("Enter book id");
-		int duration = getNumber("Enter duration of hold");
-		int result = Theater.placeHold(memberID, bookID, duration);
-		switch(result){
-			case Theater.BOOK_NOT_FOUND:
-				System.out.println("No such Book in Library");
-				break;
-			case Theater.BOOK_NOT_ISSUED:
-				System.out.println(" Book is not checked out");
-				break;
-			case Theater.NO_SUCH_MEMBER:
-				System.out.println("Not a valid member ID");
-				break;
-			case Theater.HOLD_PLACED:
-				System.out.println("A hold has been placed");
-				break;
-			default:
-				System.out.println("An error has occurred");
-		}
-	}
-	/**
-	 * Method to be called for removing a holds.
-	 * Prompts the user for the appropriate values and
-	 * uses the appropriate Library method for removing a hold.
-	 *
-	 */
-	public void removeHold() {
-		String memberID = getToken("Enter member id");
-		String bookID = getToken("Enter book id");
-		int result = Theater.removeHold(memberID, bookID);
-		switch(result){
-			case Theater.BOOK_NOT_FOUND:
-				System.out.println("No such Book in Library");
-				break;
-			case Theater.NO_SUCH_MEMBER:
-				System.out.println("Not a valid member ID");
-				break;
-			case Theater.OPERATION_COMPLETED:
-				System.out.println("The hold has been removed");
-				break;
-			default:
-				System.out.println("An error has occurred");
-		}
-	}
-	/**
-	 * Method to be called for processing books.
-	 * Prompts the user for the appropriate values and
-	 * uses the appropriate Library method for processing books.
-	 *
-	 */
-	public void processHolds() {
-		Member result;
-		do {
-			String bookID = getToken("Enter book id");
-			result = Theater.processHold(bookID);
-			if (result != null) {
-				System.out.println(result);
-			} else {
-				System.out.println("No valid holds left");
-			}
-			if (!yesOrNo("Process more books?")) {
-				break;
-			}
-		} while (true);
-	}
-	/**
-	 * Method to be called for displaying transactions.
-	 * Prompts the user for the appropriate values and
-	 * uses the appropriate Library method for displaying transactions.
-	 *
-	 */
-	public void getTransactions() {
-		Iterator result;
-		String memberID = getToken("Enter member id");
-		Calendar date  = getDate("Please enter the date for which you want records as mm/dd/yy");
-		result = Theater.getTransactions(memberID,date);
-		if (result == null) {
-			System.out.println("Invalid Member ID");
-		} else {
-			while(result.hasNext()) {
-				Transaction transaction = (Transaction) result.next();
-				System.out.println(transaction.getType() + "   "   + transaction.getTitle() + "\n");
-			}
-			System.out.println("\n  There are no more transactions \n" );
-		}
-	}
+	
+
 	/**
 	 * Method to be called for saving the Library object.
 	 * Uses the appropriate Library method for saving.
@@ -488,25 +282,25 @@ public class UserInterface {
 		help();
 		while ((command = getCommand()) != EXIT) {
 			switch (command) {
-				case ADD_PRODUCER:        addMember();
+				case ADD_PRODUCER:        addProducer();
 					break;
-				case REMOVE_PRODUCER:         addBooks();
+				case REMOVE_PRODUCER:         removeProducer();
 					break;
-				case LIST_PRODUCERS:       issueBooks();
+				case LIST_PRODUCERS:       listProducers();
 					break;
-				case ADD_CUSTOMER:      returnBooks();
+				case ADD_CUSTOMER:      addCustomer();
 					break;
-				case REMOVE_CUSTOMER:      removeBooks();
+				case REMOVE_CUSTOMER:      removeCustomer();
 					break;
-				case ADD_CARD:       renewBooks();
+				case ADD_CARD:       addCreditCard();
 					break;
-				case REMOVE_CARD:        placeHold();
+				case REMOVE_CARD:        removeCreditCard();
 					break;
-				case LIST_CUSTOMERS:       removeHold();
+				case LIST_CUSTOMERS:       listCustomers();
 					break;
-				case ADD_SHOW:      processHolds();
+				case ADD_SHOW:      addShow();
 					break;
-				case LIST_SHOWS:  getTransactions();
+				case LIST_SHOWS:  listShows();
 					break;
 				case STORE_DATA:              save();
 					break;
