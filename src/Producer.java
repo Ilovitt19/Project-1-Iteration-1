@@ -21,6 +21,7 @@ public class Producer implements Serializable {
 		this.address = address;
 		this.phone = phone;
 		id = PRODUCER_STRING;
+		id = PRODUCER_STRING + (ProducerIdServer.instance()).getId();
 	}
 
 	public String getName() {

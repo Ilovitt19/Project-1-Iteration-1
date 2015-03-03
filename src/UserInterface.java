@@ -121,11 +121,13 @@ public class UserInterface {
 			}
 		} while (true);
 	}
+	
 	/**
 	 * Prompts for a date and gets a date object
 	 * @param prompt the prompt
 	 * @return the data as a Calendar object
 	 */
+	
 	public Calendar getDate(String prompt) {
 		do {
 			try {
@@ -139,12 +141,14 @@ public class UserInterface {
 			}
 		} while (true);
 	}
+	
 	/**
 	 * Prompts for a command from the keyboard
 	 *
 	 * @return a valid command
 	 *
 	 */
+	
 	public int getCommand() {
 		do {
 			try {
@@ -184,10 +188,39 @@ public class UserInterface {
 	 *
 	 */
 	public void addProducer() {
-		
-	}
+	    String name = getToken("Enter member name");
+	    String address = getToken("Enter address");
+	    String phone = getToken("Enter phone");
+	    Producer result;
+	    result = theater.addProducer(name, address, phone);
+	    if (result == null) {
+	      System.out.println("Could not add member");
+	    }
+	    System.out.println(result);
+	  }
 	
 	public void removeProducer() {
+	    int result;
+	    do {
+	      String producerID = getToken("Enter producer id");
+	      result = theater.removeProducer(producerID);
+	      switch(result){
+	        case theater.PRODUCER_NOT_FOUND:
+	          System.out.println("No such Producer in Theater");
+	          break;
+	        case theater.OPERATION_FAILED:
+	          System.out.println("Producer could not be removed");
+	          break;
+	        case theater.OPERATION_COMPLETED:
+	          System.out.println("Producer has been removed");
+	          break;
+	        default:
+	          System.out.println("An error has occurred");
+	      }
+	      if (!yesOrNo("Remove more books?")) {
+	        break;
+	      }
+	    } while (true);
 		
 	}
 	
@@ -203,7 +236,8 @@ public class UserInterface {
 		String date = getToken("Enter Credit Card Expiration Date: ");
 		CreditCard card = new CreditCard(cardNumber, date);
 		Customer result;
-		result = Theater.addCustomer(name, address, phone, card);
+
+		result = theater.addCustomer(name, address, phone, card);
 		if (result == null) {
 			System.out.println("Could not add member");
 		}
@@ -231,7 +265,7 @@ public class UserInterface {
 		String producer = getToken("Enter producer");
 		String duration = getToken("Enter duration");
 		Show result;
-		result = Theater.addShow(title, producer, Integer.parseInt(duration));
+		result = theater.addShow(title, producer, Integer.parseInt(duration));
 		if (result == null) {
 			System.out.println("Could not add show");
 		}
@@ -313,9 +347,11 @@ public class UserInterface {
 		}
 	}
 	
+	/**
 	 * The method to start the application. Simply calls process().
 	 * @param args not used
 	 */
+	
 	public static void main(String[] args) {
 		UserInterface.instance().process();
 	}
