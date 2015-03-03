@@ -309,7 +309,7 @@ public class UserInterface {
 			}
 		}
 	}
-	/**
+	
 	 * The method to start the application. Simply calls process().
 	 * @param args not used
 	 */
