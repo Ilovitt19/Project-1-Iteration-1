@@ -64,8 +64,7 @@ public class Customer {
 	public void setCard(CreditCard card) {
 		this.card = card;
 	}
-
-
+	
 	public String getCustomerId() {
 		return customerId;
 	}
