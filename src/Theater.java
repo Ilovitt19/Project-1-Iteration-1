@@ -51,7 +51,7 @@ public class Theater implements Serializable {
 
 
 	public int removeProducer(String producerId) {
-	    Producer producer = theater.search(producerId);
+	    Producer producer = producerList.search(producerId);
 	    if (producer == null) {
 	      return(PRODUCER_NOT_FOUND);
 	    }
