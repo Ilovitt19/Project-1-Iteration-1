@@ -74,5 +74,11 @@ public class Customer {
 		this.customerId = customerId;
 	}
 
+	public String toString() {
+		String string = "Customer name " + name + " address " + address + " id " + customerId + " phone " + phoneNumber;
+
+		return string;
+	}
+
 }
 

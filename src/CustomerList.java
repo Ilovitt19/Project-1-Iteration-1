@@ -27,14 +27,9 @@ public class CustomerList implements Serializable {
 		return true;
 	}
 
-	public void removeCustomer(String customerId) {
-		for (Iterator iterator = customers.iterator(); iterator.hasNext(); ) {
-			Customer customer = (Customer) iterator.next();
-			if (customer.getCustomerId().equals(customerId)) {
-				customers.remove(customer);		//this might not work
-
-			}
-		}
+	public boolean removeCustomer(Customer customer) {
+		customers.remove(customer);
+		return true;
 
 	}
 

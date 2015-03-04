@@ -51,7 +51,7 @@ public class UserInterface {
 	 * a singleton Library object.
 	 */
 	private UserInterface() {
-		if (yesOrNo("Look for saved data and  use it?")) {
+		if (yesOrNo("Look for saved data and use it?")) {
 			retrieve();
 		} else {
 			theater = Theater.instance();
@@ -245,6 +245,27 @@ public class UserInterface {
 	}
 	
 	public void removeCustomer() {
+		int result;
+		do {
+			String customerId = getToken("Enter customer id");
+			result = theater.removeCustomer(customerId);
+			switch(result){
+				case Theater.CUSTOMER_NOT_FOUND:
+					System.out.println("No such Customer in Theater");
+					break;
+				case Theater.OPERATION_FAILED:
+					System.out.println("Customer could not be removed");
+					break;
+				case Theater.OPERATION_COMPLETED:
+					System.out.println("Customer has been removed");
+					break;
+				default:
+					System.out.println("An error has occurred");
+			}
+			if (!yesOrNo("Remove more customers?")) {
+				break;
+			}
+		} while (true);
 		
 	}
 	

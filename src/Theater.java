@@ -10,7 +10,7 @@ import java.util.Iterator;
 
 public class Theater implements Serializable {
 	  public static final int PRODUCER_NOT_FOUND  = 1;
-	  //public static final int BOOK_NOT_ISSUED  = 2;
+	  public static final int CUSTOMER_NOT_FOUND  = 2;
 	  //public static final int BOOK_HAS_HOLD  = 3;
 	 // public static final int BOOK_ISSUED  = 4;
 	 // public static final int HOLD_PLACED  = 5;
@@ -73,8 +73,15 @@ public class Theater implements Serializable {
 		return null;
 	}
 
-	public void removeCustomer(String customerId) {
-		customerList.removeCustomer(customerId);
+	public int removeCustomer(String customerId) {
+		Customer customer = customerList.search(customerId);
+		if (customer == null) {
+			return(CUSTOMER_NOT_FOUND);
+		}
+		if (customerList.removeCustomer(customer)) {
+			return (OPERATION_COMPLETED);
+		}
+		return (OPERATION_FAILED);
 	}
 
 	public void addCreditCard(String customerId, String creditCardNumber, String expirationDate){
