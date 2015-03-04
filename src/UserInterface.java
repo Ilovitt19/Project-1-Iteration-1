@@ -172,7 +172,7 @@ public class UserInterface {
 		System.out.println(REMOVE_PRODUCER + " to remove producer");
 		System.out.println(LIST_PRODUCERS + " to list all producers");
 		System.out.println(ADD_CUSTOMER + " to add a customer");
-		System.out.println(REMOVE_CUSTOMER + " to remove a cusomer");
+		System.out.println(REMOVE_CUSTOMER + " to remove a customer");
 		System.out.println(ADD_CARD + " to add a credit card");
 		System.out.println(REMOVE_CARD + " to remove a credit card");
 		System.out.println(LIST_CUSTOMERS + " to list all customers");
@@ -205,13 +205,13 @@ public class UserInterface {
 	      String producerID = getToken("Enter producer id");
 	      result = theater.removeProducer(producerID);
 	      switch(result){
-	        case theater.PRODUCER_NOT_FOUND:
+	        case Theater.PRODUCER_NOT_FOUND:
 	          System.out.println("No such Producer in Theater");
 	          break;
-	        case theater.OPERATION_FAILED:
+	        case Theater.OPERATION_FAILED:
 	          System.out.println("Producer could not be removed");
 	          break;
-	        case theater.OPERATION_COMPLETED:
+	        case Theater.OPERATION_COMPLETED:
 	          System.out.println("Producer has been removed");
 	          break;
 	        default:
