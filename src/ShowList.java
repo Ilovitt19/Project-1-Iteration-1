@@ -39,6 +39,10 @@ public class ShowList implements Serializable {
 	public Iterator getShows() {
 		return shows.iterator();
 	}
+	/**
+	 * writes objects to file
+	 * @param output
+	 */
 	private void writeObject(java.io.ObjectOutputStream output) {
 		try {
 			output.defaultWriteObject();
@@ -47,6 +51,10 @@ public class ShowList implements Serializable {
 			System.out.println(ioe);
 		}
 	}
+	/**
+	 * reads file
+	 * @param input
+	 */
 	  private void readObject(java.io.ObjectInputStream input) {
 		    try {
 		      if (showlist != null) {
@@ -65,6 +73,10 @@ public class ShowList implements Serializable {
 		      cnfe.printStackTrace();
 		    }
 		  }
+	  /**
+	   * returns string of show info
+	   * @return string
+	   */
 	  public String toString() {
 		    return shows.toString();
 		  }

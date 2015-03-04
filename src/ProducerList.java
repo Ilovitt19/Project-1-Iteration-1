@@ -4,7 +4,11 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-
+/**
+ * 
+ * Collection of producer objects
+ *
+ */
 public class ProducerList implements Serializable {
 	  private static final long serialVersionUID = 1L;
 	  private List producers = new LinkedList();
@@ -13,7 +17,10 @@ public class ProducerList implements Serializable {
 	  private ProducerList() {
 		  
 	  }
-	  
+	  /**
+	   * Private constructor for singleton pattern
+	   * 
+	   */
 	  public static ProducerList instance() {
 		    if (producerList == null) {
 		      return (producerList = new ProducerList());
@@ -21,6 +28,11 @@ public class ProducerList implements Serializable {
 		      return producerList;
 		    }
 		  }
+	  /**
+	   * Supports the singleton pattern
+	   * 
+	   * @return the singleton object
+	   */
 	  public Producer search(String producerId) {
 		    for (Iterator iterator = producers.iterator(); iterator.hasNext(); ) {
 		      Producer producer = (Producer) iterator.next();
@@ -30,18 +42,29 @@ public class ProducerList implements Serializable {
 		    }
 		    return null;
 		  }
-	  
+	  /**
+		 * adds a producer to the list
+		 * @param pruducer
+		 * @return true or false boolean
+		 */
 	  public boolean insertProducer(Producer producer) {
 		    producers.add(producer);
 		    return true;
 		  }
-
+	  /**
+		 * removes a producer from the list
+		 * @param producer
+		 * @return true or false boolean
+		 */
 	  public boolean removeProducer(Producer producer){
 
 		  producers.remove(producer);
 		  return true;
 	  }
-	  
+	  /**
+		 * writes objects to file
+		 * @param output
+		 */
 	  private void writeObject(java.io.ObjectOutputStream output) {
 		    try {
 		      output.defaultWriteObject();
@@ -50,7 +73,10 @@ public class ProducerList implements Serializable {
 		      ioe.printStackTrace();
 		    }
 		  }
-	  
+	  /**
+		 * reads file
+		 * @param input
+		 */
 	  private void readObject(java.io.ObjectInputStream input) {
 		    try {
 		      if (producerList != null) {

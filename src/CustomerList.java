@@ -3,17 +3,28 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-
+/**
+ * 
+ * Collection of customer objects
+ *
+ */
 
 public class CustomerList implements Serializable {
 
 	private List customers = new LinkedList();
 	private static CustomerList customerList;
 
-
+	  /**
+	   * Private constructor for singleton pattern
+	   * 
+	   */
 	private CustomerList() {
 	}
-
+	  /**
+	   * Supports the singleton pattern
+	   * 
+	   * @return the singleton object
+	   */
 	public static CustomerList instance() {
 		if (customerList == null) {
 			return (customerList = new CustomerList());
@@ -21,18 +32,30 @@ public class CustomerList implements Serializable {
 			return customerList;
 		}
 	}
-
+	/**
+	 * adds a customer to the list
+	 * @param customer
+	 * @return true or false boolean
+	 */
 	public boolean addCustomer(Customer customer) {
 		customers.add(customer);
 		return true;
 	}
-
+	/**
+	 * removes a customer from the list
+	 * @param customer
+	 * @return true or false boolean
+	 */
 	public boolean removeCustomer(Customer customer) {
 		customers.remove(customer);
 		return true;
 
 	}
-
+	/**
+	 * checks if a customer with the given id exists
+	 * @param customerId
+	 * @return customer object
+	 */
 	public Customer search(String customerId) {
 		for (Iterator iterator = customers.iterator(); iterator.hasNext(); ) {
 			Customer customer = (Customer) iterator.next();
@@ -42,7 +65,10 @@ public class CustomerList implements Serializable {
 		}
 		return null;
 	}
-
+	/**
+	 * writes objects to file
+	 * @param output
+	 */
 	private void writeObject(java.io.ObjectOutputStream output) {
 		try {
 			output.defaultWriteObject();
@@ -51,7 +77,10 @@ public class CustomerList implements Serializable {
 			ioe.printStackTrace();
 		}
 	}
-
+	/**
+	 * reads file
+	 * @param input
+	 */
 	private void readObject(java.io.ObjectInputStream input) {
 		try {
 			if (customerList != null) {
