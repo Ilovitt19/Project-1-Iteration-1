@@ -35,6 +35,12 @@ public class ProducerList implements Serializable {
 		    producers.add(producer);
 		    return true;
 		  }
+
+	  public boolean removeProducer(Producer producer){
+
+		  producers.remove(producer);
+		  return true;
+	  }
 	  
 	  private void writeObject(java.io.ObjectOutputStream output) {
 		    try {
