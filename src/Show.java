@@ -4,12 +4,12 @@ import java.util.GregorianCalendar;
 
 public class Show { 
 	private String showTitle;
-	private Producer producer;
+	private String producerId;
 	private Calendar date;
 
-	public Show(String showTitle, Producer producer, int duration) {
+	public Show(String showTitle, String producerId, int duration) {
 		this.showTitle = showTitle;
-		this.producer = producer;
+		this.producerId = producerId;
 		date = new GregorianCalendar();
 		date.setTimeInMillis(System.currentTimeMillis());
 		date.add(Calendar.DATE, duration);
