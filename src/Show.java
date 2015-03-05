@@ -1,5 +1,8 @@
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -12,6 +15,8 @@ public class Show implements Serializable{
 	private String showTitle;
 	private String producerId;
 	private Calendar date;
+	private String start;
+	private String end;
 	/**
 	 * constructor for show class
 	 *
@@ -19,12 +24,11 @@ public class Show implements Serializable{
 	 * @param producerId
 	 * @param duration
 	 */
-	public Show(String showTitle, String producerId, int duration) {
+	public Show(String showTitle, String producerId, String start, String end) {
 		this.showTitle = showTitle;
 		this.producerId = producerId;
-		date = new GregorianCalendar();
-		date.setTimeInMillis(System.currentTimeMillis());
-		date.add(Calendar.DATE, duration);
+		this.start =start;
+		this.end=end;
 	}
 	/**
 	 * gets show title
@@ -43,9 +47,17 @@ public class Show implements Serializable{
 	/**
 	 * test if date is in range
 	 * @return true or false boolean
+	 * @throws ParseException 
 	 */
-	public boolean isValid(){
-		return (System.currentTimeMillis() < date.getTimeInMillis());
+	public boolean isValid() throws ParseException{
+		Date d = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+		String dateInString = start;
+		String dateInString2 = end;
+		Date date5 = sdf.parse(dateInString);
+		Date date8 = sdf.parse(dateInString2);
+		
+		return (d.after(date5) && d.before(date8));
 	}
 
 	/**

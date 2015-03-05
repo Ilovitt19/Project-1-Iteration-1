@@ -162,8 +162,8 @@ public class Theater implements Serializable {
 	 * @param duration
 	 * @return
 	 */
-	public Show addShow(String title, String producerId, int duration) {
-		Show show = new Show(title, producerId, duration);
+	public Show addShow(String title, String producerId, String start, String end) {
+		Show show = new Show(title, producerId, start, end);
 		if(showList.insertShow(show)) {
 			return (show);
 		}else{

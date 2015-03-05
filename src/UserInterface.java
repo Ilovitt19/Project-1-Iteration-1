@@ -366,9 +366,10 @@ public class UserInterface {
 	public void addShow() {
 		String title = getToken("Enter show title");
 		String producer = getToken("Enter producer ID");
-		String duration = getToken("Enter duration");
+		String startDate = getToken("Enter start date (dd-mm-yyy hh:mm:ss)");
+		String endDate = getToken("Enter end date (dd-mm-yyy hh:mm:ss)");
 		Show result;
-		result = theater.addShow(title, producer , Integer.parseInt(duration));
+		result = theater.addShow(title, producer , startDate, endDate);
 		if (result == null) {
 			System.out.println("Could not add show");
 		}
