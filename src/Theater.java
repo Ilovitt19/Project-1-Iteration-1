@@ -63,7 +63,7 @@ public class Theater implements Serializable {
 	}
 
 	public void listProducers() {
-
+		producerList.listProducers();
 	}
 
 	public Customer addCustomer(String name, String address, String phoneNumber, CreditCard card) {
@@ -108,7 +108,7 @@ public class Theater implements Serializable {
 	}
 
 	public void listCustomers() {
-
+		customerList.listCustomers();
 	}
 
 	public Show addShow(String title, String producerId, int duration) {
@@ -121,6 +121,7 @@ public class Theater implements Serializable {
 	}
 
 	public void listShows(){
+		showList.listShows();
 	}
 
 	public static Theater retrieve() {

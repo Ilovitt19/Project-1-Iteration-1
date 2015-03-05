@@ -103,6 +103,25 @@ public class CustomerList implements Serializable {
 		}
 	}
 
+	public void listCustomers(){
+
+		if(customers.isEmpty()){
+			System.out.println("No customers available");
+		}
+		else {
+			for (Iterator iterator = customers.iterator(); iterator.hasNext();){
+				Customer customer = (Customer)iterator.next();
+				System.out.println(customer);
+
+			}
+		}
+	}
+
+	@Override
+	public String toString() {
+		return customers.toString();
+	}
+
 }
 
 

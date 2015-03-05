@@ -73,6 +73,21 @@ public class ShowList implements Serializable {
 			cnfe.printStackTrace();
 		}
 	}
+
+	public void listShows(){
+
+		if(shows.isEmpty()){
+			System.out.println("No shows available");
+		}
+		else {
+			for (Iterator iterator = shows.iterator(); iterator.hasNext();){
+				Show show = (Show)iterator.next();
+				System.out.println(show);
+
+			}
+		}
+
+	}
 	/**
 	 * returns string of show info
 	 * @return string

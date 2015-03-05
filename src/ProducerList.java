@@ -92,6 +92,20 @@ public class ProducerList implements Serializable {
 		}
 	}
 
+	public void listProducers(){
+
+		if(producers.isEmpty()){
+			System.out.println("No producers available");
+		}
+		else {
+			for (Iterator iterator = producers.iterator(); iterator.hasNext();){
+				Producer producer = (Producer)iterator.next();
+				System.out.println(producer);
+
+			}
+		}
+	}
+
 	@Override
 	public String toString() {
 		return producers.toString();

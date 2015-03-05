@@ -132,7 +132,7 @@ public class Customer implements Serializable {
 	 * @return string of customer info
 	 */
 	public String toString() {
-		String string = "Customer name " + name + " address " + address + " id " + customerId + "phone " + phoneNumber;
+		String string = "Customer name " + name + " address " + address + " id " + customerId + " phone " + phoneNumber;
 		string += " Credit Cards: [";
 		for (Iterator iterator = creditCards.iterator(); iterator.hasNext(); ) {
 			CreditCard card = (CreditCard) iterator.next();

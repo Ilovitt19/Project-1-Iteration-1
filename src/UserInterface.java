@@ -225,7 +225,7 @@ public class UserInterface {
 	}
 
 	public void listProducers() {
-
+		theater.listProducers();
 	}
 
 	public void addCustomer() {
@@ -310,7 +310,7 @@ public class UserInterface {
 	}
 
 	public void listCustomers() {
-
+		theater.listCustomers();
 	}
 
 	public void addShow() {
@@ -327,6 +327,7 @@ public class UserInterface {
 
 	public void listShows() {
 
+		theater.listShows();
 	}
 
 
