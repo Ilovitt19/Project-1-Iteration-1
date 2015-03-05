@@ -14,6 +14,7 @@ public class Theater implements Serializable {
 	public static final int CUSTOMER_NOT_FOUND  = 2;
 	public static final int CREDIT_CARD_NOT_FOUND  = 3;
 	public static final int ONLY_CREDIT_CARD = 4;
+	public static final int SHOW_PLAYING  = 5;
 	public static final int OPERATION_COMPLETED = 7;
 	public static final int OPERATION_FAILED= 8;
 
@@ -62,6 +63,10 @@ public class Theater implements Serializable {
 	 */
 	public int removeProducer(String producerId) {
 		Producer producer = producerList.search(producerId);
+		Show show = showList.search(producerId);
+		if (show != null) {
+			return(SHOW_PLAYING);
+		}
 		if (producer == null) {
 			return(PRODUCER_NOT_FOUND);
 		}
