@@ -33,6 +33,20 @@ public class ShowList implements Serializable {
 		return true;
 	}
 	/**
+	 * Checks to see if a show matches a certain producer Id;
+	 * and also checks to see if the show is playing (by calling isValid())
+	 * if the show is found, the method returns the show
+	 */
+	public Show search(String producerId) throws ParseException {
+		for (Iterator iterator = shows.iterator(); iterator.hasNext(); ) {
+			Show show = (Show) iterator.next();
+			if (show.getProducerId().equals(producerId) && show.isValid()) {
+				return show;
+			}
+		}
+		return null;
+	}
+	/**
 	 * Returns an iterator to all shows
 	 * @return iterator to the collection
 	 */
