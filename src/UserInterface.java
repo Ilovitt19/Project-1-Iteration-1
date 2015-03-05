@@ -217,6 +217,9 @@ public class UserInterface {
 				case Theater.PRODUCER_NOT_FOUND:
 					System.out.println("No such Producer in Theater");
 					break;
+				case Theater.SHOW_PLAYING:
+					System.out.println("Cannot remove producer, producer has show playing");
+					break;
 				case Theater.OPERATION_FAILED:
 					System.out.println("Producer could not be removed");
 					break;
