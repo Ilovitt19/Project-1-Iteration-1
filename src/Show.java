@@ -59,6 +59,13 @@ public class Show implements Serializable{
 		
 		return (d.after(date5) && d.before(date8));
 	}
+	/** 
+	 * returns the producerID 
+	 */
+	public String getProducerId() {
+		return producerId;
+	}
+
 
 	/**
 	 * Prints string of show info
