@@ -103,7 +103,7 @@ public class Producer implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		String string = "Producer name " + name + " address " + address + " id " + id + " phone " + phone + "balance " +balance;
+		String string = "Producer name: " + name + " address: " + address + " id: " + id + " phone: " + phone + "balance: " +balance;
 		return string;
 	}
 

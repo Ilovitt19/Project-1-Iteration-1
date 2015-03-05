@@ -53,7 +53,7 @@ public class Show implements Serializable{
 	 * @return show info
 	 */
 	public String toString() {
-		String string = "Show Title " + showTitle + " dates " + date;
+		String string = "Show Title: " + showTitle + " dates: " + date;
 		return string;
 	}
 }
