@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -6,7 +7,8 @@ import java.util.GregorianCalendar;
  * stores shows
  *
  */
-public class Show {
+public class Show implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private String showTitle;
 	private String producerId;
 	private Calendar date;

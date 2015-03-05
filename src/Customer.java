@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -7,7 +8,8 @@ import java.util.List;
  *
  * */
 
-public class Customer {
+public class Customer implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private String name;
 	private String address;
 	private String phoneNumber;
@@ -41,12 +43,7 @@ public class Customer {
 
 	}
 	public boolean removeCreditCard(String creditCardNumber) {
-//		for (Iterator iterator = creditCards.iterator(); iterator.hasNext(); ) {
-//			CreditCard card = (CreditCard) iterator.next();
-//			if (card.getNumber().equals(creditCardNumber)) {
-//				creditCards.remove(card);//this works
-//			}
-//		}
+
 		CreditCard card = searchCreditCard(creditCardNumber);
 		if (card == null) {
 			return false;
@@ -135,10 +132,13 @@ public class Customer {
 	 * @return string of customer info
 	 */
 	public String toString() {
-		String string = "Customer name " + name + " address " + address + " id " + customerId + "phone " + phoneNumber
-				+ " \n " + ((CreditCard) creditCards.get(0)).getNumber();
-
-		return string;
+		String string = "Customer name " + name + " address " + address + " id " + customerId + "phone " + phoneNumber;
+		string += " Credit Cards: [";
+		for (Iterator iterator = creditCards.iterator(); iterator.hasNext(); ) {
+			CreditCard card = (CreditCard) iterator.next();
+			string += " " + card.getNumber();
+		}
+		return string + "]";
 	}
 
 }

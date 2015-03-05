@@ -1,6 +1,9 @@
+import java.io.Serializable;
+
 /**This class stores a credit card*/
 
-public class CreditCard {
+public class CreditCard implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private String number;
 	private String expirationDate;
 	/** Constructor for credit card class

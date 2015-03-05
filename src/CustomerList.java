@@ -11,6 +11,8 @@ import java.util.List;
 
 public class CustomerList implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
 	private List customers = new LinkedList();
 	private static CustomerList customerList;
 
@@ -43,10 +45,7 @@ public class CustomerList implements Serializable {
 	}
 
 	public boolean removeCustomer(String customerId) {
-//		for (Iterator iterator = customers.iterator(); iterator.hasNext(); ) {
-//			Customer customer = (Customer) iterator.next();
-//			if (customer.getCustomerId().equals(customerId)) {
-//				customers.remove(customer);		//this might not work
+
 		Customer customer = search(customerId);
 		if (customer == null) {
 			return false;

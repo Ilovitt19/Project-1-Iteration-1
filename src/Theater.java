@@ -9,6 +9,7 @@ import java.util.Iterator;
 
 
 public class Theater implements Serializable {
+	private static final long serialVersionUID = 1L;
 	public static final int PRODUCER_NOT_FOUND  = 1;
 	public static final int CUSTOMER_NOT_FOUND  = 2;
 	public static final int CREDIT_CARD_NOT_FOUND  = 3;
