@@ -42,6 +42,12 @@ public class Customer implements Serializable {
 		creditCards.add(card);
 
 	}
+
+	/**
+	 * Removes a credit card from a customer's list with the given number
+	 * @param creditCardNumber
+	 * @return
+	 */
 	public boolean removeCreditCard(String creditCardNumber) {
 
 		CreditCard card = searchCreditCard(creditCardNumber);
@@ -51,6 +57,12 @@ public class Customer implements Serializable {
 			return creditCards.remove(card);
 		}
 	}
+
+	/**
+	 * Method to search for the given credit card
+	 * @param cardNumber
+	 * @return
+	 */
 	public CreditCard searchCreditCard(String cardNumber) {
 		for (Iterator iterator = creditCards.iterator(); iterator.hasNext(); ) {
 			CreditCard card = (CreditCard) iterator.next();
@@ -89,6 +101,10 @@ public class Customer implements Serializable {
 		this.address = address;
 	}
 
+	/**
+	 * gets customer phone number
+	 * @return
+	 */
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}

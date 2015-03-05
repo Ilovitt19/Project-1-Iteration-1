@@ -44,6 +44,11 @@ public class CustomerList implements Serializable {
 		return true;
 	}
 
+	/**
+	 * Removes customer with the given id
+	 * @param customerId
+	 * @return true if completed
+	 */
 	public boolean removeCustomer(String customerId) {
 
 		Customer customer = search(customerId);
@@ -103,6 +108,9 @@ public class CustomerList implements Serializable {
 		}
 	}
 
+	/**
+	 * Prints a list of the customers
+	 */
 	public void listCustomers(){
 
 		if(customers.isEmpty()){

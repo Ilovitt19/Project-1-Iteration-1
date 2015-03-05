@@ -97,6 +97,10 @@ public class Producer implements Serializable {
 		this.balance = balance;
 	}
 
+	/**
+	 * String representaion of a producer
+	 * @return
+	 */
 	@Override
 	public String toString() {
 		String string = "Producer name " + name + " address " + address + " id " + id + " phone " + phone + "balance " +balance;

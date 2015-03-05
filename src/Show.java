@@ -48,6 +48,10 @@ public class Show implements Serializable{
 		return (System.currentTimeMillis() < date.getTimeInMillis());
 	}
 
+	/**
+	 * Prints string of show info
+	 * @return show info
+	 */
 	public String toString() {
 		String string = "Show Title " + showTitle + " dates " + date;
 		return string;

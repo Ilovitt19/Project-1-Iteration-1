@@ -1,5 +1,8 @@
 /**
  *
+ *
+ * We used the UserInterface class from Library project as a shell for our own interface, see note below:
+ *
  * @author Brahma Dathan and Sarnath Ramnath
  * @Copyright (c) 2010
 
@@ -48,7 +51,7 @@ public class UserInterface {
 	/**
 	 * Made private for singleton pattern.
 	 * Conditionally looks for any saved data. Otherwise, it gets
-	 * a singleton Library object.
+	 * a singleton Theater object.
 	 */
 	private UserInterface() {
 		if (yesOrNo("Look for saved data and use it?")) {
@@ -182,9 +185,9 @@ public class UserInterface {
 		System.out.println(HELP + " for help");
 	}
 	/**
-	 * Method to be called for adding a member.
+	 * Method to be called for adding a producer.
 	 * Prompts the user for the appropriate values and
-	 * uses the appropriate Library method for adding the member.
+	 * uses the appropriate Theater method for adding the producer.
 	 *
 	 */
 	public void addProducer() {
@@ -199,6 +202,12 @@ public class UserInterface {
 		System.out.println(result);
 	}
 
+	/**
+	 * Method to be called for removing a producer.
+	 * Prompts the user for the appropriate id and
+	 * uses the appropriate Theater method for removing the producer.
+	 *
+	 */
 	public void removeProducer() {
 		int result;
 		do {
@@ -217,17 +226,27 @@ public class UserInterface {
 				default:
 					System.out.println("An error has occurred");
 			}
-			if (!yesOrNo("Remove more books?")) {
+			if (!yesOrNo("Remove more producers?")) {
 				break;
 			}
 		} while (true);
 
 	}
 
+	/**
+	 * Method to be called for listing producers.
+	 *
+	 */
 	public void listProducers() {
 		theater.listProducers();
 	}
 
+	/**
+	 * Method to be called for adding a customer.
+	 * Prompts the user for the appropriate values and
+	 * uses the appropriate Theater method for adding the customer.
+	 *
+	 */
 	public void addCustomer() {
 		String name = getToken("Enter customer name");
 		String address = getToken("Enter address");
@@ -244,6 +263,12 @@ public class UserInterface {
 		System.out.println(result);
 	}
 
+	/**
+	 * Method to be called for removing a customer.
+	 * Prompts the user for the appropriate id and
+	 * uses the appropriate Theater method for removing the customer.
+	 *
+	 */
 	public void removeCustomer() {
 		int result;
 		do {
@@ -269,6 +294,12 @@ public class UserInterface {
 
 	}
 
+	/**
+	 * Method to be called for adding a credit card for a customer.
+	 * Prompts the user for the appropriate values and
+	 * uses the appropriate Theater method for adding the card.
+	 *
+	 */
 	public void addCreditCard() {
 		String cardNumber = getToken("Enter credit card number");
 		String expDate = getToken("Enter expiration date ");
@@ -284,6 +315,12 @@ public class UserInterface {
 		System.out.println(result + " " + card.getNumber());
 	}
 
+	/**
+	 * Method to be called for removing a credit card.
+	 * Prompts the user for the appropriate id and
+	 * uses the appropriate Theater method for removing the producer.
+	 *
+	 */
 	public void removeCreditCard() {
 		int result;
 		do{
@@ -309,10 +346,20 @@ public class UserInterface {
 		} while (true);
 	}
 
+	/**
+	 * Method to be called for listing customers.
+	 *
+	 */
 	public void listCustomers() {
 		theater.listCustomers();
 	}
 
+	/**
+	 * Method to be called for adding a show for a producer.
+	 * Prompts the user for the appropriate values and
+	 * uses the appropriate Theater method for adding the show.
+	 *
+	 */
 	public void addShow() {
 		String title = getToken("Enter show title");
 		String producer = getToken("Enter producer ID");
@@ -325,6 +372,10 @@ public class UserInterface {
 		System.out.println(result);
 	}
 
+	/**
+	 * Method to be called for listing shows.
+	 *
+	 */
 	public void listShows() {
 
 		theater.listShows();
@@ -333,8 +384,8 @@ public class UserInterface {
 
 
 	/**
-	 * Method to be called for saving the Library object.
-	 * Uses the appropriate Library method for saving.
+	 * Method to be called for saving the Theater object.
+	 * Uses the appropriate Theater method for saving.
 	 *
 	 */
 	private void save() {
@@ -346,7 +397,7 @@ public class UserInterface {
 	}
 	/**
 	 * Method to be called for retrieving saved data.
-	 * Uses the appropriate Library method for retrieval.
+	 * Uses the appropriate Theater method for retrieval.
 	 *
 	 */
 	private void retrieve() {
@@ -356,7 +407,7 @@ public class UserInterface {
 				System.out.println(" The theater has been successfully retrieved from the file TheaterData \n" );
 				theater = tempTheater;
 			} else {
-				System.out.println("File doesn't exist; creating new library" );
+				System.out.println("File doesn't exist; creating new theater" );
 				theater = Theater.instance();
 			}
 		} catch(Exception cnfe) {

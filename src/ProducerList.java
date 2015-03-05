@@ -52,6 +52,11 @@ public class ProducerList implements Serializable {
 		return true;
 	}
 
+	/**
+	 * Removes producer from list with given ID
+	 * @param producerId
+	 * @return true if completed
+	 */
 	public boolean removeProducer(String producerId) {
 		Producer producer = search(producerId);
 		if (producer == null) {
@@ -61,6 +66,10 @@ public class ProducerList implements Serializable {
 		}
 	}
 
+	/**
+	 * Writes to file
+	 * @param output
+	 */
 	private void writeObject(java.io.ObjectOutputStream output) {
 		try {
 			output.defaultWriteObject();
@@ -92,6 +101,9 @@ public class ProducerList implements Serializable {
 		}
 	}
 
+	/**
+	 * Prints a list of the producers
+	 */
 	public void listProducers(){
 
 		if(producers.isEmpty()){

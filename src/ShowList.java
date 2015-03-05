@@ -25,15 +25,15 @@ public class ShowList implements Serializable {
 
 	/**
 	 * Inserts a show into the collection
-	 * @param show the book to be inserted
-	 * @return true iff the book could be inserted. Currently always true
+	 * @param show the show to be inserted
+	 * @return true iff the show could be inserted. Currently always true
 	 */
 	public boolean insertShow(Show show) {
 		shows.add(show);
 		return true;
 	}
 	/**
-	 * Returns an iterator to all books
+	 * Returns an iterator to all shows
 	 * @return iterator to the collection
 	 */
 	public Iterator getShows() {
@@ -74,6 +74,9 @@ public class ShowList implements Serializable {
 		}
 	}
 
+	/**
+	 * Prints a list of the shows
+	 */
 	public void listShows(){
 
 		if(shows.isEmpty()){
