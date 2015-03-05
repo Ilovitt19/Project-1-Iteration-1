@@ -331,6 +331,9 @@ public class UserInterface {
 				case Theater.CREDIT_CARD_NOT_FOUND:
 					System.out.println("No such Customer/Credit in Theater");
 					break;
+				case Theater.ONLY_CREDIT_CARD:
+					System.out.println("Cannot delete, need at least one credit card on file");
+					break;
 				case Theater.OPERATION_FAILED:
 					System.out.println("Customer/Credit could not be removed");
 					break;
