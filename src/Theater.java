@@ -13,6 +13,7 @@ public class Theater implements Serializable {
 	public static final int PRODUCER_NOT_FOUND  = 1;
 	public static final int CUSTOMER_NOT_FOUND  = 2;
 	public static final int CREDIT_CARD_NOT_FOUND  = 3;
+	public static final int ONLY_CREDIT_CARD = 4;
 	public static final int OPERATION_COMPLETED = 7;
 	public static final int OPERATION_FAILED= 8;
 
@@ -137,6 +138,9 @@ public class Theater implements Serializable {
 		CreditCard card = customer.searchCreditCard(cardNumber);
 		if (card == null) {
 			return(CREDIT_CARD_NOT_FOUND);
+		}
+		if ( customer.cardListSize() == 1) {
+			return ( ONLY_CREDIT_CARD );
 		}
 		if ( customer.removeCreditCard(cardNumber) ) {
 			return (OPERATION_COMPLETED);
