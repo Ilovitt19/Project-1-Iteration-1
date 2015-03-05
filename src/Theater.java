@@ -61,7 +61,7 @@ public class Theater implements Serializable {
 	 * @param producerId the Id of the producer to be removed
 	 * @return
 	 */
-	public int removeProducer(String producerId) {
+	public int removeProducer(String producerId) throws ParseException {
 		Producer producer = producerList.search(producerId);
 		Show show = showList.search(producerId);
 		if (show != null) {
