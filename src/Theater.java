@@ -9,21 +9,21 @@ import java.util.Iterator;
 
 
 public class Theater implements Serializable {
-	  public static final int PRODUCER_NOT_FOUND  = 1;
-	  public static final int CUSTOMER_NOT_FOUND  = 2;
-	  //public static final int BOOK_HAS_HOLD  = 3;
-	 // public static final int BOOK_ISSUED  = 4;
-	 // public static final int HOLD_PLACED  = 5;
-	 // public static final int NO_HOLD_FOUND  = 6;
-	  public static final int OPERATION_COMPLETED = 7;
-	  public static final int OPERATION_FAILED= 8;
-	  //public static final int NO_SUCH_MEMBER = 9;
-	
+	public static final int PRODUCER_NOT_FOUND  = 1;
+	public static final int CUSTOMER_NOT_FOUND  = 2;
+	public static final int CREDIT_CARD_NOT_FOUND  = 3;
+	// public static final int BOOK_ISSUED  = 4;
+	// public static final int HOLD_PLACED  = 5;
+	// public static final int NO_HOLD_FOUND  = 6;
+	public static final int OPERATION_COMPLETED = 7;
+	public static final int OPERATION_FAILED= 8;
+	//public static final int NO_SUCH_MEMBER = 9;
+
 	private CustomerList customerList;
 	private ShowList showList;
 	private ProducerList producerList;
 	private static Theater theater;
-	
+
 
 	private Theater() {
 		showList = ShowList.instance();
@@ -43,22 +43,22 @@ public class Theater implements Serializable {
 
 	public Producer addProducer(String name, String address, String phone) {
 		Producer producer = new Producer(name, address, phone);
-	    if (producerList.insertProducer(producer)) {
-	      return (producer);
-	    }
-	    return null;
-	  }
+		if (producerList.insertProducer(producer)) {
+			return (producer);
+		}
+		return null;
+	}
 
 
 	public int removeProducer(String producerId) {
-	    Producer producer = producerList.search(producerId);
-	    if (producer == null) {
-	      return(PRODUCER_NOT_FOUND);
-	    }
-	    if (producerList.removeProducer(producer)) {
-	      return (OPERATION_COMPLETED);
-	    }
-	    return (OPERATION_FAILED);
+		Producer producer = producerList.search(producerId);
+		if (producer == null) {
+			return(PRODUCER_NOT_FOUND);
+		}
+		if (producerList.removeProducer(producerId)) {
+			return (OPERATION_COMPLETED);
+		}
+		return (OPERATION_FAILED);
 	}
 
 	public void listProducers() {
@@ -78,20 +78,32 @@ public class Theater implements Serializable {
 		if (customer == null) {
 			return(CUSTOMER_NOT_FOUND);
 		}
-		if (customerList.removeCustomer(customer)) {
+		if (customerList.removeCustomer(customerId)) {
 			return (OPERATION_COMPLETED);
 		}
 		return (OPERATION_FAILED);
 	}
 
-	public void addCreditCard(String customerId, String creditCardNumber, String expirationDate){
+	public Customer addCreditCard(String customerId, String creditCardNumber, String expirationDate){
 		CreditCard card = new CreditCard(creditCardNumber, expirationDate);
-		Customer customer = customerList.search(customerId);
-		customer.addCreditCard(card);
+		if (customerList.search(customerId) != null) {
+			Customer customer = customerList.search(customerId);
+			customer.addCreditCard(card);
+			return (customer);
+		}
+		return null;
 	}
 
-	public void removeCreditCard() {
-
+	public int removeCreditCard(String customerId, String cardNumber) {
+		Customer customer = customerList.search(customerId);
+		CreditCard card = customer.searchCreditCard(cardNumber);
+		if (card == null) {
+			return(CREDIT_CARD_NOT_FOUND);
+		}
+		if ( customer.removeCreditCard(cardNumber) ) {
+			return (OPERATION_COMPLETED);
+		}
+		return (OPERATION_FAILED);
 	}
 
 	public void listCustomers() {

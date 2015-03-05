@@ -121,13 +121,13 @@ public class UserInterface {
 			}
 		} while (true);
 	}
-	
+
 	/**
 	 * Prompts for a date and gets a date object
 	 * @param prompt the prompt
 	 * @return the data as a Calendar object
 	 */
-	
+
 	public Calendar getDate(String prompt) {
 		do {
 			try {
@@ -141,14 +141,14 @@ public class UserInterface {
 			}
 		} while (true);
 	}
-	
+
 	/**
 	 * Prompts for a command from the keyboard
 	 *
 	 * @return a valid command
 	 *
 	 */
-	
+
 	public int getCommand() {
 		do {
 			try {
@@ -188,46 +188,46 @@ public class UserInterface {
 	 *
 	 */
 	public void addProducer() {
-	    String name = getToken("Enter member name");
-	    String address = getToken("Enter address");
-	    String phone = getToken("Enter phone");
-	    Producer result;
-	    result = theater.addProducer(name, address, phone);
-	    if (result == null) {
-	      System.out.println("Could not add member");
-	    }
-	    System.out.println(result);
-	  }
-	
+		String name = getToken("Enter producer name");
+		String address = getToken("Enter address");
+		String phone = getToken("Enter phone");
+		Producer result;
+		result = theater.addProducer(name, address, phone);
+		if (result == null) {
+			System.out.println("Could not add producer");
+		}
+		System.out.println(result);
+	}
+
 	public void removeProducer() {
-	    int result;
-	    do {
-	      String producerID = getToken("Enter producer id");
-	      result = theater.removeProducer(producerID);
-	      switch(result){
-	        case Theater.PRODUCER_NOT_FOUND:
-	          System.out.println("No such Producer in Theater");
-	          break;
-	        case Theater.OPERATION_FAILED:
-	          System.out.println("Producer could not be removed");
-	          break;
-	        case Theater.OPERATION_COMPLETED:
-	          System.out.println("Producer has been removed");
-	          break;
-	        default:
-	          System.out.println("An error has occurred");
-	      }
-	      if (!yesOrNo("Remove more books?")) {
-	        break;
-	      }
-	    } while (true);
-		
+		int result;
+		do {
+			String producerID = getToken("Enter producer id");
+			result = theater.removeProducer(producerID);
+			switch(result){
+				case Theater.PRODUCER_NOT_FOUND:
+					System.out.println("No such Producer in Theater");
+					break;
+				case Theater.OPERATION_FAILED:
+					System.out.println("Producer could not be removed");
+					break;
+				case Theater.OPERATION_COMPLETED:
+					System.out.println("Producer has been removed");
+					break;
+				default:
+					System.out.println("An error has occurred");
+			}
+			if (!yesOrNo("Remove more books?")) {
+				break;
+			}
+		} while (true);
+
 	}
-	
+
 	public void listProducers() {
-		
+
 	}
-	
+
 	public void addCustomer() {
 		String name = getToken("Enter customer name");
 		String address = getToken("Enter address");
@@ -239,11 +239,11 @@ public class UserInterface {
 
 		result = theater.addCustomer(name, address, phone, card);
 		if (result == null) {
-			System.out.println("Could not add member");
+			System.out.println("Could not add customer");
 		}
 		System.out.println(result);
 	}
-	
+
 	public void removeCustomer() {
 		int result;
 		do {
@@ -266,21 +266,53 @@ public class UserInterface {
 				break;
 			}
 		} while (true);
-		
+
 	}
-	
+
 	public void addCreditCard() {
-		
+		String cardNumber = getToken("Enter credit card number");
+		String expDate = getToken("Enter expiration date ");
+		String customerId = getToken("Enter customerId");
+
+		CreditCard card = new CreditCard(cardNumber, expDate);
+		Customer result;
+
+		result = theater.addCreditCard(customerId, cardNumber, expDate);
+		if (result == null) {
+			System.out.println("Could not add credit card");
+		}
+		System.out.println(result + " " + card.getNumber());
 	}
-	
+
 	public void removeCreditCard() {
-		
+		int result;
+		do{
+			String customerId = getToken("Enter customer id");
+			String cardNumber = getToken("Enter card number to remove");
+			result = theater.removeCreditCard(customerId, cardNumber);
+			switch(result){
+				case Theater.CREDIT_CARD_NOT_FOUND:
+					System.out.println("No such Customer/Credit in Theater");
+					break;
+				case Theater.OPERATION_FAILED:
+					System.out.println("Customer/Credit could not be removed");
+					break;
+				case Theater.OPERATION_COMPLETED:
+					System.out.println("Credit card has been removed");
+					break;
+				default:
+					System.out.println("An error has occurred");
+			}
+			if (!yesOrNo("Remove more credit cards?")) {
+				break;
+			}
+		} while (true);
 	}
-	
+
 	public void listCustomers() {
-		
+
 	}
-	
+
 	public void addShow() {
 		String title = getToken("Enter show title");
 		String producer = getToken("Enter producer ID");
@@ -292,12 +324,12 @@ public class UserInterface {
 		}
 		System.out.println(result);
 	}
-	
+
 	public void listShows() {
-		
+
 	}
-	
-	
+
+
 
 	/**
 	 * Method to be called for saving the Library object.
@@ -367,12 +399,12 @@ public class UserInterface {
 			}
 		}
 	}
-	
+
 	/**
 	 * The method to start the application. Simply calls process().
 	 * @param args not used
 	 */
-	
+
 	public static void main(String[] args) {
 		UserInterface.instance().process();
 	}

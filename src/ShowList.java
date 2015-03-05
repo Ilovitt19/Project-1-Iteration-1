@@ -12,7 +12,7 @@ public class ShowList implements Serializable {
 	}
 	/**
 	 * Supports the singleton pattern
-	 * 
+	 *
 	 * @return the singleton object
 	 */
 	public static ShowList instance() {
@@ -24,14 +24,14 @@ public class ShowList implements Serializable {
 	}
 
 	/**
-	 * Inserts a book into the collection
-	 * @param book the book to be inserted
+	 * Inserts a show into the collection
+	 * @param show the book to be inserted
 	 * @return true iff the book could be inserted. Currently always true
 	 */
 	public boolean insertShow(Show show) {
 		shows.add(show);
 		return true;
-	} 
+	}
 	/**
 	 * Returns an iterator to all books
 	 * @return iterator to the collection
@@ -55,29 +55,29 @@ public class ShowList implements Serializable {
 	 * reads file
 	 * @param input
 	 */
-	  private void readObject(java.io.ObjectInputStream input) {
-		    try {
-		      if (showlist != null) {
-		        return;
-		      } else {
-		        input.defaultReadObject();
-		        if (showlist == null) {
-		          showlist = (ShowList) input.readObject();
-		        } else {
-		          input.readObject();
-		        }
-		      }
-		    } catch(IOException ioe) {
-		      System.out.println("in Catalog readObject \n" + ioe);
-		    } catch(ClassNotFoundException cnfe) {
-		      cnfe.printStackTrace();
-		    }
-		  }
-	  /**
-	   * returns string of show info
-	   * @return string
-	   */
-	  public String toString() {
-		    return shows.toString();
-		  }
+	private void readObject(java.io.ObjectInputStream input) {
+		try {
+			if (showlist != null) {
+				return;
+			} else {
+				input.defaultReadObject();
+				if (showlist == null) {
+					showlist = (ShowList) input.readObject();
+				} else {
+					input.readObject();
+				}
+			}
+		} catch(IOException ioe) {
+			System.out.println("in Catalog readObject \n" + ioe);
+		} catch(ClassNotFoundException cnfe) {
+			cnfe.printStackTrace();
+		}
+	}
+	/**
+	 * returns string of show info
+	 * @return string
+	 */
+	public String toString() {
+		return shows.toString();
+	}
 }

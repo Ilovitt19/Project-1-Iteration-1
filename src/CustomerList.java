@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 /**
- * 
+ *
  * Collection of customer objects
  *
  */
@@ -14,17 +14,17 @@ public class CustomerList implements Serializable {
 	private List customers = new LinkedList();
 	private static CustomerList customerList;
 
-	  /**
-	   * Private constructor for singleton pattern
-	   * 
-	   */
+	/**
+	 * Private constructor for singleton pattern
+	 *
+	 */
 	private CustomerList() {
 	}
-	  /**
-	   * Supports the singleton pattern
-	   * 
-	   * @return the singleton object
-	   */
+	/**
+	 * Supports the singleton pattern
+	 *
+	 * @return the singleton object
+	 */
 	public static CustomerList instance() {
 		if (customerList == null) {
 			return (customerList = new CustomerList());
@@ -41,14 +41,18 @@ public class CustomerList implements Serializable {
 		customers.add(customer);
 		return true;
 	}
-	/**
-	 * removes a customer from the list
-	 * @param customer
-	 * @return true or false boolean
-	 */
-	public boolean removeCustomer(Customer customer) {
-		customers.remove(customer);
-		return true;
+
+	public boolean removeCustomer(String customerId) {
+//		for (Iterator iterator = customers.iterator(); iterator.hasNext(); ) {
+//			Customer customer = (Customer) iterator.next();
+//			if (customer.getCustomerId().equals(customerId)) {
+//				customers.remove(customer);		//this might not work
+		Customer customer = search(customerId);
+		if (customer == null) {
+			return false;
+		} else {
+			return customers.remove(customer);
+		}
 
 	}
 	/**

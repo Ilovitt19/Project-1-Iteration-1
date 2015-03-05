@@ -2,9 +2,9 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-/** 
+/**
  * This class stores customers
- * 
+ *
  * */
 
 public class Customer {
@@ -13,6 +13,7 @@ public class Customer {
 	private String phoneNumber;
 	private CreditCard card;
 	private String customerId;
+	private static final String CUSTOMER_STRING = "C";
 	private List creditCards = new LinkedList();
 	/**
 	 * Constructor for the customer class
@@ -27,8 +28,9 @@ public class Customer {
 		this.name = name;
 		this.address = address;
 		this.phoneNumber = phoneNumber;
-		this.card = card;
-		this.customerId = customerId;
+		creditCards.add(this.card = card); //adds the first creditcard to the list.
+
+		customerId = CUSTOMER_STRING + (CustomerIdServer.instance()).getId();
 	}
 	/**
 	 * adds a credit card to the credit cards list
@@ -38,17 +40,28 @@ public class Customer {
 		creditCards.add(card);
 
 	}
-	/**
-	 * removes a credit card from the list
-	 * @param creditCardNumber
-	 */
-	public void removeCreditCard(String creditCardNumber) {
+	public boolean removeCreditCard(String creditCardNumber) {
+//		for (Iterator iterator = creditCards.iterator(); iterator.hasNext(); ) {
+//			CreditCard card = (CreditCard) iterator.next();
+//			if (card.getNumber().equals(creditCardNumber)) {
+//				creditCards.remove(card);//this works
+//			}
+//		}
+		CreditCard card = searchCreditCard(creditCardNumber);
+		if (card == null) {
+			return false;
+		} else {
+			return creditCards.remove(card);
+		}
+	}
+	public CreditCard searchCreditCard(String cardNumber) {
 		for (Iterator iterator = creditCards.iterator(); iterator.hasNext(); ) {
 			CreditCard card = (CreditCard) iterator.next();
-			if (card.getNumber().equals(creditCardNumber)) {
-				creditCards.remove(card);//this might not work
+			if (card.getNumber().equals(cardNumber)) {
+				return card;
 			}
 		}
+		return null;
 	}
 	/**
 	 * gets customer name
@@ -122,7 +135,8 @@ public class Customer {
 	 * @return string of customer info
 	 */
 	public String toString() {
-		String string = "Customer name " + name + " address " + address + " id " + customerId + " phone " + phoneNumber;
+		String string = "Customer name " + name + " address " + address + " id " + customerId + "phone " + phoneNumber
+				+ " \n " + ((CreditCard) creditCards.get(0)).getNumber();
 
 		return string;
 	}

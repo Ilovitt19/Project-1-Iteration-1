@@ -2,17 +2,17 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 /**
- * 
+ *
  * stores shows
  *
  */
-public class Show { 
+public class Show {
 	private String showTitle;
 	private String producerId;
 	private Calendar date;
 	/**
 	 * constructor for show class
-	 * 
+	 *
 	 * @param showTitle
 	 * @param producerId
 	 * @param duration
@@ -46,4 +46,8 @@ public class Show {
 		return (System.currentTimeMillis() < date.getTimeInMillis());
 	}
 
+	public String toString() {
+		String string = "Show Title " + showTitle + " dates " + date;
+		return string;
+	}
 }

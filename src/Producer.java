@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * Stores producers
- * 
+ *
  */
 public class Producer implements Serializable {
 
@@ -96,11 +96,11 @@ public class Producer implements Serializable {
 	public void setBalance(double balance) {
 		this.balance = balance;
 	}
-	/**
-	 * generates a pruducer id
-	 */
-	public void generateID(){
-		
+
+	@Override
+	public String toString() {
+		String string = "Producer name " + name + " address " + address + " id " + id + " phone " + phone + "balance " +balance;
+		return string;
 	}
 
 }
