@@ -143,6 +143,13 @@ public class Customer implements Serializable {
 	public void setCustomerId(String customerId) {
 		this.customerId = customerId;
 	}
+	/** 
+	 * returns the int value of the number of creditcards in the 
+	 * customers creditcard list.
+	 */
+	public int cardListSize() {
+		return creditCards.size();
+	}
 	/**
 	 * prints a string of customer info
 	 * @return string of customer info
