@@ -208,7 +208,7 @@ public class UserInterface {
 	 * uses the appropriate Theater method for removing the producer.
 	 *
 	 */
-	public void removeProducer() {
+	public void removeProducer() throws ParseException {
 		int result;
 		do {
 			String producerID = getToken("Enter producer id");
@@ -426,7 +426,7 @@ public class UserInterface {
 	 * Calls the appropriate method for the different functionalties.
 	 *
 	 */
-	public void process() {
+	public void process() throws ParseException {
 		int command;
 		help();
 		while ((command = getCommand()) != EXIT) {
@@ -464,7 +464,11 @@ public class UserInterface {
 	 * @param args not used
 	 */
 
-	public static void main(String[] args) {
-		UserInterface.instance().process();
-	}
+	public static void main(String[] args) throws ParseException {
+        try {
+            UserInterface.instance().process();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
 }

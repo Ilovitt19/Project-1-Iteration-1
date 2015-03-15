@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -61,7 +62,7 @@ public class Theater implements Serializable {
 	 * @param producerId the Id of the producer to be removed
 	 * @return
 	 */
-	public int removeProducer(String producerId) throws ParseException {
+	public int removeProducer(String producerId) throws ParseException, ParseException {
 		Producer producer = producerList.search(producerId);
 		Show show = showList.search(producerId);
 		if (show != null) {
