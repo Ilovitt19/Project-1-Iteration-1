@@ -206,6 +206,7 @@ public class UserInterface {
 	 * Method to be called for removing a producer.
 	 * Prompts the user for the appropriate id and
 	 * uses the appropriate Theater method for removing the producer.
+	 * @throws ParseException 
 	 *
 	 */
 	public void removeProducer() throws ParseException {
@@ -424,6 +425,7 @@ public class UserInterface {
 	/**
 	 * Orchestrates the whole process.
 	 * Calls the appropriate method for the different functionalties.
+	 * @throws ParseException 
 	 *
 	 */
 	public void process() throws ParseException {
@@ -433,7 +435,7 @@ public class UserInterface {
 			switch (command) {
 				case ADD_PRODUCER:        addProducer();
 					break;
-				case REMOVE_PRODUCER:         removeProducer();
+				case REMOVE_PRODUCER:        removeProducer();
 					break;
 				case LIST_PRODUCERS:       listProducers();
 					break;
@@ -462,13 +464,10 @@ public class UserInterface {
 	/**
 	 * The method to start the application. Simply calls process().
 	 * @param args not used
+	 * @throws ParseException 
 	 */
 
 	public static void main(String[] args) throws ParseException {
-        try {
-            UserInterface.instance().process();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
+		UserInterface.instance().process();
+	}
 }

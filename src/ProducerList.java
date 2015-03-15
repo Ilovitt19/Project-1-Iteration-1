@@ -123,4 +123,3 @@ public class ProducerList implements Serializable {
 		return producers.toString();
 	}
 }
-
