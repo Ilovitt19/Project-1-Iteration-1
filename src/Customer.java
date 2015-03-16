@@ -173,6 +173,7 @@ public class Customer implements Serializable {
 	 * prints a string of customer info
 	 * @return string of customer info
 	 */
+	@Override
 	public String toString() {
 		String string = "Customer name: " + name + " address: " + address + " id: " + customerId + " phone: " + phoneNumber;
 		string += " Credit Cards: [";

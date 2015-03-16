@@ -134,6 +134,7 @@ public class ShowList implements Serializable {
 	 * returns string of show info
 	 * @return string
 	 */
+	@Override
 	public String toString() {
 		return shows.toString();
 	}

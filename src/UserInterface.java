@@ -143,7 +143,7 @@ public class UserInterface {
 			try {
 				Calendar date = new GregorianCalendar();
 				String item = getToken(prompt);
-				DateFormat dateFormat = SimpleDateFormat.getDateInstance(DateFormat.SHORT);
+				DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT);
 				date.setTime(dateFormat.parse(item));
 				return date;
 			} catch (Exception fe) {
@@ -549,7 +549,7 @@ public class UserInterface {
 	 *
 	 */
 	private void save() {
-		if (theater.save()) {
+		if (Theater.save()) {
 			System.out.println(" The theater has been successfully saved in the file TheaterData \n" );
 		} else {
 			System.out.println(" There has been an error in saving \n" );
