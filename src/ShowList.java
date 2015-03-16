@@ -47,6 +47,30 @@ public class ShowList implements Serializable {
 		}
 		return null;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	public Show searchTitle(String customerId) throws ParseException {
+		for (Iterator iterator = shows.iterator(); iterator.hasNext(); ) {
+			Show show = (Show) iterator.next();
+			if (show.getTitle().equals(customerId) && show.isValid()) {
+				return show;
+			}
+		}
+		return null;
+	}
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * Returns an iterator to all shows
 	 * @return iterator to the collection

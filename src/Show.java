@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -17,6 +19,9 @@ public class Show implements Serializable{
 	private Calendar date;
 	private String start;
 	private String end;
+	private Double ticketPrice;
+	private List ticketsPurchased = new LinkedList();
+	
 	/**
 	 * constructor for show class
 	 *
@@ -24,11 +29,12 @@ public class Show implements Serializable{
 	 * @param producerId
 	 * @param duration
 	 */
-	public Show(String showTitle, String producerId, String start, String end) {
+	public Show(String showTitle, String producerId, String start, String end, double ticketPrice) {
 		this.showTitle = showTitle;
 		this.producerId = producerId;
 		this.start =start;
 		this.end=end;
+		this.ticketPrice = ticketPrice;
 	}
 	/**
 	 * gets show title
@@ -65,14 +71,24 @@ public class Show implements Serializable{
 	public String getProducerId() {
 		return producerId;
 	}
-
+	
+	public double getPrice() {
+		return ticketPrice;
+	}
+	
+	public void ticketPurchased(Ticket ticket) {
+		ticketsPurchased.add(ticket);
+	}
 
 	/**
 	 * Prints string of show info
 	 * @return show info
 	 */
 	public String toString() {
-		String string = "Show Title: " + showTitle + " dates: " + date;
+		String string = "Show Title: " + showTitle + " start dates: " + start + " end date: " + end;
 		return string;
 	}
 }
+
+
+

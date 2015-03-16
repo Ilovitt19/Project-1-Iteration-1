@@ -47,7 +47,14 @@ public class UserInterface {
 	private static final int ADD_SHOW = 9;
 	private static final int LIST_SHOWS = 10;
 	private static final int STORE_DATA = 11;
-	private static final int HELP = 13;
+	private static final int RETRIEVE = 12;	
+	private static final int BUYTICKET = 13;
+	private static final int BUYADVTICKET = 14;
+	private static final int BUYSTUADVTICKET = 15;
+	private static final int PAYPRODUCER = 16;
+	private static final int TRANSACTIONS = 17;
+	private static final int HELP = 18;
+
 	/**
 	 * Made private for singleton pattern.
 	 * Conditionally looks for any saved data. Otherwise, it gets
@@ -181,7 +188,12 @@ public class UserInterface {
 		System.out.println(LIST_CUSTOMERS + " to list all customers");
 		System.out.println(ADD_SHOW + " to add a show");
 		System.out.println(LIST_SHOWS + " to list all shows");
-		System.out.println(STORE_DATA + " to  save data");
+		System.out.println(STORE_DATA + " to store data.");
+		System.out.println(BUYTICKET + " to purchase a ticket");
+		System.out.println(BUYADVTICKET + " to preorder a ticket for a show");
+		System.out.println(BUYSTUADVTICKET + " to preorder a student ticket.");
+		System.out.println(PAYPRODUCER + " to pay a producer a share.");
+		System.out.println(TRANSACTIONS + " to print transactions on a certain day");
 		System.out.println(HELP + " for help");
 	}
 	/**
@@ -215,20 +227,20 @@ public class UserInterface {
 			String producerID = getToken("Enter producer id");
 			result = theater.removeProducer(producerID);
 			switch(result){
-				case Theater.PRODUCER_NOT_FOUND:
-					System.out.println("No such Producer in Theater");
-					break;
-				case Theater.SHOW_PLAYING:
-					System.out.println("Cannot remove producer, producer has show playing");
-					break;
-				case Theater.OPERATION_FAILED:
-					System.out.println("Producer could not be removed");
-					break;
-				case Theater.OPERATION_COMPLETED:
-					System.out.println("Producer has been removed");
-					break;
-				default:
-					System.out.println("An error has occurred");
+			case Theater.PRODUCER_NOT_FOUND:
+				System.out.println("No such Producer in Theater");
+				break;
+			case Theater.SHOW_PLAYING:
+				System.out.println("Cannot remove producer, producer has show playing");
+				break;
+			case Theater.OPERATION_FAILED:
+				System.out.println("Producer could not be removed");
+				break;
+			case Theater.OPERATION_COMPLETED:
+				System.out.println("Producer has been removed");
+				break;
+			default:
+				System.out.println("An error has occurred");
 			}
 			if (!yesOrNo("Remove more producers?")) {
 				break;
@@ -279,17 +291,17 @@ public class UserInterface {
 			String customerId = getToken("Enter customer id");
 			result = theater.removeCustomer(customerId);
 			switch(result){
-				case Theater.CUSTOMER_NOT_FOUND:
-					System.out.println("No such Customer in Theater");
-					break;
-				case Theater.OPERATION_FAILED:
-					System.out.println("Customer could not be removed");
-					break;
-				case Theater.OPERATION_COMPLETED:
-					System.out.println("Customer has been removed");
-					break;
-				default:
-					System.out.println("An error has occurred");
+			case Theater.CUSTOMER_NOT_FOUND:
+				System.out.println("No such Customer in Theater");
+				break;
+			case Theater.OPERATION_FAILED:
+				System.out.println("Customer could not be removed");
+				break;
+			case Theater.OPERATION_COMPLETED:
+				System.out.println("Customer has been removed");
+				break;
+			default:
+				System.out.println("An error has occurred");
 			}
 			if (!yesOrNo("Remove more customers?")) {
 				break;
@@ -332,20 +344,20 @@ public class UserInterface {
 			String cardNumber = getToken("Enter card number to remove");
 			result = theater.removeCreditCard(customerId, cardNumber);
 			switch(result){
-				case Theater.CREDIT_CARD_NOT_FOUND:
-					System.out.println("No such Customer/Credit in Theater");
-					break;
-				case Theater.ONLY_CREDIT_CARD:
-					System.out.println("Cannot delete, need at least one credit card on file");
-					break;
-				case Theater.OPERATION_FAILED:
-					System.out.println("Customer/Credit could not be removed");
-					break;
-				case Theater.OPERATION_COMPLETED:
-					System.out.println("Credit card has been removed");
-					break;
-				default:
-					System.out.println("An error has occurred");
+			case Theater.CREDIT_CARD_NOT_FOUND:
+				System.out.println("No such Customer/Credit in Theater");
+				break;
+			case Theater.ONLY_CREDIT_CARD:
+				System.out.println("Cannot delete, need at least one credit card on file");
+				break;
+			case Theater.OPERATION_FAILED:
+				System.out.println("Customer/Credit could not be removed");
+				break;
+			case Theater.OPERATION_COMPLETED:
+				System.out.println("Credit card has been removed");
+				break;
+			default:
+				System.out.println("An error has occurred");
 			}
 			if (!yesOrNo("Remove more credit cards?")) {
 				break;
@@ -370,10 +382,11 @@ public class UserInterface {
 	public void addShow() {
 		String title = getToken("Enter show title");
 		String producer = getToken("Enter producer ID");
-		String startDate = getToken("Enter start date (dd-mm-yyy hh:mm:ss)");
-		String endDate = getToken("Enter end date (dd-mm-yyy hh:mm:ss)");
+		String startDate = getToken("Enter start date (dd-mm-yyyy hh:mm:ss)");
+		String endDate = getToken("Enter end date (dd-mm-yyyy hh:mm:ss)");
+		String price = getToken("Enter the regular price of ticket.");
 		Show result;
-		result = theater.addShow(title, producer , startDate, endDate);
+		result = theater.addShow(title, producer , startDate, endDate, price);
 		if (result == null) {
 			System.out.println("Could not add show");
 		}
@@ -385,9 +398,148 @@ public class UserInterface {
 	 *
 	 */
 	public void listShows() {
-
 		theater.listShows();
 	}
+
+
+	public void issueTickets() throws ParseException {
+		Show result;
+		String showTitle = getToken("Enter show title");
+		String customerID = getToken("Enter customer id");
+		if (yesOrNo ("Is this customer a student?")) {
+			// run different method
+		} else {			
+			if (theater.searchCustomer(customerID) == null) {	
+				System.out.println("No such customer");
+				return;
+			}
+			if (theater.searchShowTitle(showTitle) == null) { //check if show exists
+				System.out.println("No such show.");
+				return;
+			}
+			do {
+				String quantity = getToken("Enter the quantity of tickets to purchase");
+				String card = getToken("Enter the customers credit card number");
+				String date = getToken("Enter the date for the show viewing");
+				
+				result = theater.issueShowTickets(showTitle, customerID, quantity, card, date);
+				if (result != null){
+					double price = result.getPrice();
+					System.out.println("Show ticket pruchased: " + result.getTitle()+ "   " 
+										+  (price * (Double.parseDouble(quantity))));
+				} else {
+					System.out.println("Ticket could not be purchased for show");
+				}
+				if (!yesOrNo("Purchase more Shows?")) {
+					break;
+				}
+
+			} while (true);
+		}
+	}
+
+	public void issueAdvTickets() throws ParseException {
+		Show result;
+		String showTitle = getToken("Enter show title");
+		String customerID = getToken("Enter customer id");
+		
+			if (theater.searchCustomer(customerID) == null) {	
+				System.out.println("No such customer");
+				return;
+			}
+			if (theater.searchShowTitle(showTitle) == null) { //check if show exists
+				System.out.println("No such show.");
+				return;
+			}
+			do {
+				String quantity = getToken("Enter the quantity of tickets to purchase");
+				String card = getToken("Enter the customers credit card number");
+				String date = getToken("Enter the date for the show viewing");
+				
+				result = theater.issueShowTickets(showTitle, customerID, quantity, card, date);
+				if (result != null){
+					double price = result.getPrice();
+					System.out.println("Show ticket pruchased: " + result.getTitle()+ "   " 
+										+  ((price * 0.7) * (Double.parseDouble(quantity))));
+				} else {
+					System.out.println("Ticket could not be purchased for show");
+				}
+				if (!yesOrNo("Purchase more Shows?")) {
+					break;
+				}
+
+			} while (true);
+		
+	}
+
+	public void issueStuAdvTickets() throws ParseException {
+		Show result;
+		String showTitle = getToken("Enter show title");
+		String customerID = getToken("Enter customer id");
+		
+			if (theater.searchCustomer(customerID) == null) {	
+				System.out.println("No such customer");
+				return;
+			}
+			if (theater.searchShowTitle(showTitle) == null) { //check if show exists
+				System.out.println("No such show.");
+				return;
+			}
+			do {
+				String quantity = getToken("Enter the quantity of tickets to purchase");
+				String card = getToken("Enter the customers credit card number");
+				String date = getToken("Enter the date for the show viewing");
+				
+				result = theater.issueShowTickets(showTitle, customerID, quantity, card, date);
+				if (result != null){
+					double price = result.getPrice();
+					System.out.println("Show ticket pruchased: " + result.getTitle()+ "   " 
+										+  (((price * 0.7) * 0.5) * (Double.parseDouble(quantity))));
+				} else {
+					System.out.println("Ticket could not be purchased for show");
+				}
+				if (!yesOrNo("Purchase more Shows?")) {
+					break;
+				}
+
+			} while (true);
+		
+	}
+
+
+	private void payProducer() {
+
+		String producerID = getToken("Enter producer ID: ");
+		Producer producerBalance = theater.searchProducer(producerID);
+		if (producerBalance == null) {
+			System.out.println("Producer not found.");
+		}
+		System.out.println("Current Balance: " + producerBalance.getBalance());
+		String amount = getToken("Amount to be paid to producer: ");
+		double amountDouble = Double.parseDouble(amount);
+		Producer result = theater.payProducer(producerID, amountDouble);
+		System.out.println(result);
+	}
+
+	public void getTransactions() {
+		Iterator result;
+		//		    String customerID = getToken("Enter member id");
+		Calendar date  = getDate("Please enter the date for which you want records as mm/dd/yy");
+		result = theater.getTransactions(date);
+		if (result == null) {
+			System.out.println("Nothing purchased");
+		} else {
+			while(result.hasNext()) {
+				Transaction transaction = (Transaction) result.next();
+				System.out.println(transaction.getType() + "   "   + transaction.getTitle() + "\n");
+			}
+			System.out.println("\n  There are no more transactions \n" );
+		}
+	}
+
+
+
+
 
 
 
@@ -433,33 +585,47 @@ public class UserInterface {
 		help();
 		while ((command = getCommand()) != EXIT) {
 			switch (command) {
-				case ADD_PRODUCER:        addProducer();
-					break;
-				case REMOVE_PRODUCER:        removeProducer();
-					break;
-				case LIST_PRODUCERS:       listProducers();
-					break;
-				case ADD_CUSTOMER:      addCustomer();
-					break;
-				case REMOVE_CUSTOMER:      removeCustomer();
-					break;
-				case ADD_CARD:       addCreditCard();
-					break;
-				case REMOVE_CARD:        removeCreditCard();
-					break;
-				case LIST_CUSTOMERS:       listCustomers();
-					break;
-				case ADD_SHOW:      addShow();
-					break;
-				case LIST_SHOWS:  listShows();
-					break;
-				case STORE_DATA:              save();
-					break;
-				case HELP:              help();
-					break;
+			case ADD_PRODUCER:        addProducer();
+			break;
+			case REMOVE_PRODUCER:        removeProducer();
+			break;
+			case LIST_PRODUCERS:       listProducers();
+			break;
+			case ADD_CUSTOMER:      addCustomer();
+			break;
+			case REMOVE_CUSTOMER:      removeCustomer();
+			break;
+			case ADD_CARD:       addCreditCard();
+			break;
+			case REMOVE_CARD:        removeCreditCard();
+			break;
+			case LIST_CUSTOMERS:       listCustomers();
+			break;
+			case ADD_SHOW:      addShow();
+			break;
+			case LIST_SHOWS:  listShows();
+			break;
+			case STORE_DATA:              save();
+			break;
+
+
+			case BUYTICKET :	issueTickets();
+			break;
+			case BUYADVTICKET: issueAdvTickets();
+			break;
+			case BUYSTUADVTICKET: issueStuAdvTickets();
+			break;
+			case PAYPRODUCER :	payProducer();
+			break;		
+			case TRANSACTIONS : getTransactions();
+				break;
+			case HELP:              help();
+			break;
 			}
 		}
 	}
+
+
 
 	/**
 	 * The method to start the application. Simply calls process().

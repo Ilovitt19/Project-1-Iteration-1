@@ -94,8 +94,11 @@ public class Producer implements Serializable {
 	 * @param balance
 	 */
 	public void setBalance(double balance) {
-		this.balance = balance;
-	}
+
+		this.balance = this.balance + balance;
+
+
+		}
 
 	/**
 	 * String representaion of a producer
@@ -103,7 +106,7 @@ public class Producer implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		String string = "Producer name: " + name + " address: " + address + " id: " + id + " phone: " + phone + "balance: " +balance;
+		String string = "Producer name: " + name + " address: " + address + " id: " + id + " phone: " + phone + "balance: " + balance;
 		return string;
 	}
 

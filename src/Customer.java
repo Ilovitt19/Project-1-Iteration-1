@@ -17,6 +17,8 @@ public class Customer implements Serializable {
 	private String customerId;
 	private static final String CUSTOMER_STRING = "C";
 	private List creditCards = new LinkedList();
+	private List transactions = new LinkedList();
+	private List showsPurchased = new LinkedList();
 	/**
 	 * Constructor for the customer class
 	 * @param name
@@ -34,6 +36,23 @@ public class Customer implements Serializable {
 
 		customerId = CUSTOMER_STRING + (CustomerIdServer.instance()).getId();
 	}
+	
+	  public boolean issue(Show ticket) {
+		    if (showsPurchased.add(ticket)) {
+		      transactions.add(new Transaction ("Ticket Purchased ", ticket.getTitle()));
+		      return true;
+		    }
+		    return false;
+		  }
+	  
+	  public boolean issueAdv(Show ticket) {
+		    if (showsPurchased.add(ticket)) {
+			      transactions.add(new Transaction ("Ticket Purchased ", ticket.getTitle()));
+			      return true;
+			    }
+			    return false;
+			  }
+	
 	/**
 	 * adds a credit card to the credit cards list
 	 * @param card
@@ -161,6 +180,11 @@ public class Customer implements Serializable {
 			CreditCard card = (CreditCard) iterator.next();
 			string += " " + card.getNumber();
 		}
+//		string += " Tickets: [";
+//		for (Iterator iterator = creditCards.iterator(); iterator.hasNext(); ) {
+//			CreditCard card = (CreditCard) iterator.next();
+//			string += " " + card.getNumber();
+//		}
 		return string + " ]";
 	}
 

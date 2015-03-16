@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -168,8 +169,8 @@ public class Theater implements Serializable {
 	 * @param duration
 	 * @return
 	 */
-	public Show addShow(String title, String producerId, String start, String end) {
-		Show show = new Show(title, producerId, start, end);
+	public Show addShow(String title, String producerId, String start, String end, String ticket) {
+		Show show = new Show(title, producerId, start, end, Double.parseDouble(ticket));
 		if(showList.insertShow(show)) {
 			return (show);
 		}else{
@@ -220,6 +221,114 @@ public class Theater implements Serializable {
 			return false;
 		}
 	}
+
+
+
+
+	public Show issueShowTickets(String showTitle, String customerId, String quantity, String card, String date) throws ParseException {
+		Customer customer = customerList.search(customerId);
+		Show show = showList.searchTitle(showTitle);
+		if (customer == null || show == null) {
+			return(null);
+		}
+	
+		if (!(customer.issue(show))) {
+			return null;
+		} else {
+			Ticket ticket = new Ticket("Regular", show.getPrice());
+			show.ticketPurchased(ticket);
+			return(show);
+		}
+	}
+
+
+	public Show issueAdvShow(String customerId, String showTitle) throws ParseException {
+		Show show = showList.searchTitle(showTitle);
+		if (show == null) {
+			return(null);
+		}
+		//	    if (show.getBorrower() != null) {
+		//	      return(null);
+		//	    }
+		Customer customer = customerList.search(customerId);
+		if (customer == null) {
+			return(null);
+		}
+		//	    if (!(show.issue(customer) && customer.issue(show))) {
+		//	      return null;
+		//	    }
+		if (!(customer.issueAdv(show))) {
+			return null;
+		}
+		return(show);	
+	}
+
+	public Show issueStuAdvShow(String customerId, String showTitle) throws ParseException {
+		Show show = showList.searchTitle(showTitle);
+		if (show == null) {
+			return(null);
+		}
+		//	    if (show.getBorrower() != null) {
+		//	      return(null);
+		//	    }
+		Customer customer = customerList.search(customerId);
+		if (customer == null) {
+			return(null);
+		}
+		//	    if (!(show.issue(customer) && customer.issue(show))) {
+		//	      return null;
+		//	    }
+		if (!(customer.issueAdv(show))) {
+			return null;
+		}
+		return(show);	
+	}
+
+
+
+
+		  public Iterator getTransactions(Calendar date) {
+			  Ticket ticket = ticket.search(date);
+			    if (date == null) {
+			      return(null);
+			    }
+			    return show.getTransactions(date);
+			  }
+
+
+
+
+	public Producer payProducer(String producerID, double balance) {
+		Producer producer = producerList.search(producerID);
+		producer.setBalance(balance);
+		return producer;
+	}
+
+	public Producer searchProducer(String producerID)	{
+		Producer producer = producerList.search(producerID);
+		return producer;
+	}
+
+	public Customer searchCustomer(String memberId) {
+		return customerList.search(memberId);
+	}
+
+	public Show searchShowTitle(String title) throws ParseException {
+		return showList.searchTitle(title);
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	/**
 	 * Writes Theater data to disk
