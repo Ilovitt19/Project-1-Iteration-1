@@ -89,6 +89,7 @@ public class Ticket implements Serializable {
 	 * @return date with month, date, and year
 	 */
 	public String getDate() {
+		
 		return date.get(Calendar.MONTH) + "/" + date.get(Calendar.DATE) + "/"
 				+ date.get(Calendar.YEAR);
 	}

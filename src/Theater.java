@@ -303,8 +303,8 @@ public class Theater implements Serializable {
 //		return null;
 //	}
 
-	public void listTickets(){
-		ticketList.listTickets();
+	public void listTickets(String date){
+		ticketList.listTickets(date);
 	}
 
 

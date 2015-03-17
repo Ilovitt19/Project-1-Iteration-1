@@ -379,11 +379,12 @@ public class UserInterface {
 	 * uses the appropriate Theater method for adding the show.
 	 *
 	 */
+	
 	public void addShow() {
 		String title = getToken("Enter show title");
 		String producer = getToken("Enter producer ID");
-		String startDate = getToken("Enter start date (dd-mm-yyyy hh:mm:ss)");
-		String endDate = getToken("Enter end date (dd-mm-yyyy hh:mm:ss)");
+		String startDate = getToken("Enter start date (dd-MM-yyyy hh:mm:ss)");
+		String endDate = getToken("Enter end date (dd-MM-yyyy hh:mm:ss)");
 		String price = getToken("Enter the regular price of ticket.");
 		Show result;
 		result = theater.addShow(title, producer , startDate, endDate, price);
@@ -556,8 +557,8 @@ public class UserInterface {
 
 
 	public void listTickets() {
-		//String date  = getToken("Please enter the date for which you want records as mm/dd/yy");
-		theater.listTickets();
+		String date  = getToken("Please enter the date for which you want records as mm/dd/yy");
+		theater.listTickets(date);
 	}
 
 
