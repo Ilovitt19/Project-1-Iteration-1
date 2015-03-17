@@ -8,6 +8,8 @@ import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 
 public class Theater implements Serializable {
@@ -24,13 +26,14 @@ public class Theater implements Serializable {
 	private ShowList showList;
 	private ProducerList producerList;
 	private static Theater theater;
+	private List<Ticket> tickets = new LinkedList();
 
 	/**
 	 * Constructor to instantiate the three lists
 	 */
 	private Theater() {
 		showList = ShowList.instance();
-		producerList = ProducerList.instance();
+		producerList = ProducerList.instance();	
 		customerList = CustomerList.instance();
 	}
 	//Singleton property
@@ -147,7 +150,7 @@ public class Theater implements Serializable {
 			return(CREDIT_CARD_NOT_FOUND);
 		}
 		if ( customer.cardListSize() == 1) {
-			return ( ONLY_CREDIT_CARD );
+			return ( ONLY_CREDIT_CARD ); 
 		}
 		if ( customer.removeCreditCard(cardNumber) ) {
 			return (OPERATION_COMPLETED);
@@ -222,23 +225,21 @@ public class Theater implements Serializable {
 		}
 	}
 
-
-
-
 	public Show issueShowTickets(String showTitle, String customerId, String quantity, String card, String date) throws ParseException {
 		Customer customer = customerList.search(customerId);
 		Show show = showList.searchTitle(showTitle);
+		Ticket ticket = new Ticket("Regular", show.getPrice());
 		if (customer == null || show == null) {
 			return(null);
 		}
-	
-		if (!(customer.issue(show))) {
+
+		if (!(customer.issueTicket(show, ticket))) {
 			return null;
-		} else {
-			Ticket ticket = new Ticket("Regular", show.getPrice());
-			show.ticketPurchased(ticket);
-			return(show);
+
 		}
+			//tickets.add(ticket);
+			return(show);
+		
 	}
 
 
@@ -284,16 +285,21 @@ public class Theater implements Serializable {
 		return(show);	
 	}
 
+	public Ticket getTransactions(Calendar date) {
+		
+		if (date == null) {
+			return(null);
+		}
+		for (Iterator<Ticket> iterator = tickets.iterator(); iterator.hasNext(); ) {
+			Ticket tick = (Ticket) iterator.next();
+			if (tick.getDate().equals(date)) {
+				return tick;
+			}
+		}
+		return null;
+	}
 
 
-
-		  public Iterator getTransactions(Calendar date) {
-			  Ticket ticket = ticket.search(date);
-			    if (date == null) {
-			      return(null);
-			    }
-			    return show.getTransactions(date);
-			  }
 
 
 

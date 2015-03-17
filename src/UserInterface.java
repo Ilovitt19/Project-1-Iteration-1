@@ -143,7 +143,7 @@ public class UserInterface {
 			try {
 				Calendar date = new GregorianCalendar();
 				String item = getToken(prompt);
-				DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT);
+				DateFormat dateFormat = SimpleDateFormat.getDateInstance(DateFormat.SHORT);
 				date.setTime(dateFormat.parse(item));
 				return date;
 			} catch (Exception fe) {
@@ -406,10 +406,8 @@ public class UserInterface {
 		Show result;
 		String showTitle = getToken("Enter show title");
 		String customerID = getToken("Enter customer id");
-		if (yesOrNo ("Is this customer a student?")) {
-			// run different method
-		} else {			
-			if (theater.searchCustomer(customerID) == null) {	
+				
+			if (theater.searchCustomer(customerID) == null) {	 
 				System.out.println("No such customer");
 				return;
 			}
@@ -423,10 +421,15 @@ public class UserInterface {
 				String date = getToken("Enter the date for the show viewing");
 				
 				result = theater.issueShowTickets(showTitle, customerID, quantity, card, date);
-				if (result != null){
-					double price = result.getPrice();
+				if (result != null) {
+					
+					double price = result.getPrice()* (Double.parseDouble(quantity));
+					Show show = theater.searchShowTitle(showTitle);
+					Producer producer = theater.searchProducer(show.getProducerId());
+					Producer payProducer = theater.payProducer(producer.getId(), price/2.0);
+	
 					System.out.println("Show ticket pruchased: " + result.getTitle()+ "   " 
-										+  (price * (Double.parseDouble(quantity))));
+										+  (price));
 				} else {
 					System.out.println("Ticket could not be purchased for show");
 				}
@@ -435,7 +438,7 @@ public class UserInterface {
 				}
 
 			} while (true);
-		}
+		
 	}
 
 	public void issueAdvTickets() throws ParseException {
@@ -458,9 +461,15 @@ public class UserInterface {
 				
 				result = theater.issueShowTickets(showTitle, customerID, quantity, card, date);
 				if (result != null){
-					double price = result.getPrice();
+					
+					double price = (result.getPrice() * 0.7) * (Double.parseDouble(quantity));
+					Show show = theater.searchShowTitle(showTitle);
+					Producer producer = theater.searchProducer(show.getProducerId());
+					Producer payProducer = theater.payProducer(producer.getId(), price/2.0);
+					
+					
 					System.out.println("Show ticket pruchased: " + result.getTitle()+ "   " 
-										+  ((price * 0.7) * (Double.parseDouble(quantity))));
+										+  (price));
 				} else {
 					System.out.println("Ticket could not be purchased for show");
 				}
@@ -492,9 +501,15 @@ public class UserInterface {
 				
 				result = theater.issueShowTickets(showTitle, customerID, quantity, card, date);
 				if (result != null){
-					double price = result.getPrice();
+					
+					double price = ((result.getPrice() * 0.7)* 0.5) * (Double.parseDouble(quantity));
+					Show show = theater.searchShowTitle(showTitle);
+					Producer producer = theater.searchProducer(show.getProducerId());
+					Producer payProducer = theater.payProducer(producer.getId(), price/2.0);
+					
+				
 					System.out.println("Show ticket pruchased: " + result.getTitle()+ "   " 
-										+  (((price * 0.7) * 0.5) * (Double.parseDouble(quantity))));
+										+  (price ));
 				} else {
 					System.out.println("Ticket could not be purchased for show");
 				}
@@ -519,13 +534,13 @@ public class UserInterface {
 		double amountDouble = Double.parseDouble(amount);
 		Producer result = theater.payProducer(producerID, amountDouble);
 		System.out.println(result);
-	}
+	} 
 
 	public void getTransactions() {
 		Iterator result;
 		//		    String customerID = getToken("Enter member id");
 		Calendar date  = getDate("Please enter the date for which you want records as mm/dd/yy");
-		result = theater.getTransactions(date);
+		result = (Iterator) theater.getTransactions(date);
 		if (result == null) {
 			System.out.println("Nothing purchased");
 		} else {
@@ -549,7 +564,7 @@ public class UserInterface {
 	 *
 	 */
 	private void save() {
-		if (Theater.save()) {
+		if (theater.save()) {
 			System.out.println(" The theater has been successfully saved in the file TheaterData \n" );
 		} else {
 			System.out.println(" There has been an error in saving \n" );

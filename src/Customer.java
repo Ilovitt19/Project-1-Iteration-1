@@ -15,6 +15,7 @@ public class Customer implements Serializable {
 	private String phoneNumber;
 	private CreditCard card;
 	private String customerId;
+	private int counter;
 	private static final String CUSTOMER_STRING = "C";
 	private List creditCards = new LinkedList();
 	private List transactions = new LinkedList();
@@ -37,9 +38,9 @@ public class Customer implements Serializable {
 		customerId = CUSTOMER_STRING + (CustomerIdServer.instance()).getId();
 	}
 	
-	  public boolean issue(Show ticket) {
-		    if (showsPurchased.add(ticket)) {
-		      transactions.add(new Transaction ("Ticket Purchased ", ticket.getTitle()));
+	  public boolean issueTicket(Show show, Ticket ticket) {
+		    if (showsPurchased.add(show)) {
+		      transactions.add(new Ticket(" Regular Ticket Purchased ", show.getPrice()));
 		      return true;
 		    }
 		    return false;
@@ -173,7 +174,6 @@ public class Customer implements Serializable {
 	 * prints a string of customer info
 	 * @return string of customer info
 	 */
-	@Override
 	public String toString() {
 		String string = "Customer name: " + name + " address: " + address + " id: " + customerId + " phone: " + phoneNumber;
 		string += " Credit Cards: [";

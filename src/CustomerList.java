@@ -124,6 +124,18 @@ public class CustomerList implements Serializable {
 			}
 		}
 	}
+	
+	public void listCustomerTickets() {
+//		if(customers.isEmpty()){
+//			System.out.println("No customers available");
+//		}
+//		else {
+//			for (Iterator iterator = customers.iterator(); iterator.hasNext();){
+//				Customer customer = (Customer)iterator.next();
+//				if(customer.hasTicket(date))
+//					return ticket;
+//		}
+	}
 
 	@Override
 	public String toString() {

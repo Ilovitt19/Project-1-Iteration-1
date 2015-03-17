@@ -44,6 +44,7 @@ public class Ticket implements Serializable {
 	 *            The title of the book
 	 * 
 	 */
+	
 	public Ticket(String type, double price) {
 		this.type = type;
 		this.price = price;

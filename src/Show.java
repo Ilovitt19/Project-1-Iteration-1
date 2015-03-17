@@ -84,7 +84,6 @@ public class Show implements Serializable{
 	 * Prints string of show info
 	 * @return show info
 	 */
-	@Override
 	public String toString() {
 		String string = "Show Title: " + showTitle + " start dates: " + start + " end date: " + end;
 		return string;

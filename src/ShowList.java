@@ -70,7 +70,6 @@ public class ShowList implements Serializable {
 	
 	
 	
-	
 	/**
 	 * Returns an iterator to all shows
 	 * @return iterator to the collection
@@ -134,7 +133,6 @@ public class ShowList implements Serializable {
 	 * returns string of show info
 	 * @return string
 	 */
-	@Override
 	public String toString() {
 		return shows.toString();
 	}
