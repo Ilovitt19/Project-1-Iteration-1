@@ -21,12 +21,14 @@ public class Theater implements Serializable {
 	public static final int SHOW_PLAYING  = 5;
 	public static final int OPERATION_COMPLETED = 7;
 	public static final int OPERATION_FAILED= 8;
+	public static final int NO_MATCH = 9;
 
 	private CustomerList customerList;
 	private ShowList showList;
+	private TicketList ticketList;
 	private ProducerList producerList;
 	private static Theater theater;
-	private List<Ticket> tickets = new LinkedList();
+	
 
 	/**
 	 * Constructor to instantiate the three lists
@@ -35,6 +37,7 @@ public class Theater implements Serializable {
 		showList = ShowList.instance();
 		producerList = ProducerList.instance();	
 		customerList = CustomerList.instance();
+		ticketList = TicketList.instance();
 	}
 	//Singleton property
 	public static Theater instance() {
@@ -228,6 +231,7 @@ public class Theater implements Serializable {
 	public Show issueShowTickets(String showTitle, String customerId, String quantity, String card, String date) throws ParseException {
 		Customer customer = customerList.search(customerId);
 		Show show = showList.searchTitle(showTitle);
+		
 		Ticket ticket = new Ticket("Regular", show.getPrice());
 		if (customer == null || show == null) {
 			return(null);
@@ -237,7 +241,7 @@ public class Theater implements Serializable {
 			return null;
 
 		}
-			//tickets.add(ticket);
+			ticketList.insertShow(ticket);
 			return(show);
 		
 	}
@@ -285,21 +289,23 @@ public class Theater implements Serializable {
 		return(show);	
 	}
 
-	public Ticket getTransactions(Calendar date) {
-		
-		if (date == null) {
-			return(null);
-		}
-		for (Iterator<Ticket> iterator = tickets.iterator(); iterator.hasNext(); ) {
-			Ticket tick = (Ticket) iterator.next();
-			if (tick.getDate().equals(date)) {
-				return tick;
-			}
-		}
-		return null;
+//	public Ticket getTransactions(Calendar date) {
+//		
+//		if (date == null) {
+//			return(null);
+//		}
+//		for (Iterator<Ticket> iterator = tickets.iterator(); iterator.hasNext(); ) {
+//			Ticket tick = (Ticket) iterator.next();
+//			if (tick.getDate().equals(date)) {
+//				return tick;
+//			}
+//		}
+//		return null;
+//	}
+
+	public void listTickets(){
+		ticketList.listTickets();
 	}
-
-
 
 
 

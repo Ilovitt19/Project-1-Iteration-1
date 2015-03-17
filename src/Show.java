@@ -57,7 +57,7 @@ public class Show implements Serializable{
 	 */
 	public boolean isValid() throws ParseException{
 		Date d = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
 		String dateInString = start;
 		String dateInString2 = end;
 		Date date5 = sdf.parse(dateInString);

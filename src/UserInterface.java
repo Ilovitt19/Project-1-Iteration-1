@@ -406,12 +406,13 @@ public class UserInterface {
 		Show result;
 		String showTitle = getToken("Enter show title");
 		String customerID = getToken("Enter customer id");
+		Show show = theater.searchShowTitle(showTitle);
 				
 			if (theater.searchCustomer(customerID) == null) {	 
 				System.out.println("No such customer");
 				return;
 			}
-			if (theater.searchShowTitle(showTitle) == null) { //check if show exists
+			if (show == null) { //check if show exists
 				System.out.println("No such show.");
 				return;
 			}
@@ -420,11 +421,12 @@ public class UserInterface {
 				String card = getToken("Enter the customers credit card number");
 				String date = getToken("Enter the date for the show viewing");
 				
+				
 				result = theater.issueShowTickets(showTitle, customerID, quantity, card, date);
-				if (result != null) {
+				if (result != null && show.isValid()) { // need to update isValid()
 					
-					double price = result.getPrice()* (Double.parseDouble(quantity));
-					Show show = theater.searchShowTitle(showTitle);
+					double price = result.getPrice() * (Double.parseDouble(quantity));
+					
 					Producer producer = theater.searchProducer(show.getProducerId());
 					Producer payProducer = theater.payProducer(producer.getId(), price/2.0);
 	
@@ -536,24 +538,27 @@ public class UserInterface {
 		System.out.println(result);
 	} 
 
-	public void getTransactions() {
-		Iterator result;
-		//		    String customerID = getToken("Enter member id");
-		Calendar date  = getDate("Please enter the date for which you want records as mm/dd/yy");
-		result = (Iterator) theater.getTransactions(date);
-		if (result == null) {
-			System.out.println("Nothing purchased");
-		} else {
-			while(result.hasNext()) {
-				Transaction transaction = (Transaction) result.next();
-				System.out.println(transaction.getType() + "   "   + transaction.getTitle() + "\n");
-			}
-			System.out.println("\n  There are no more transactions \n" );
-		}
+//	public void getTransactions() {
+//		Iterator result;
+//		//		    String customerID = getToken("Enter member id");
+//		Calendar date  = getDate("Please enter the date for which you want records as mm/dd/yy");
+//		result = (Iterator) theater.getTransactions(date);
+//		if (result == null) {
+//			System.out.println("Nothing purchased");
+//		} else {
+//			while(result.hasNext()) {
+//				Transaction transaction = (Transaction) result.next();
+//				System.out.println(transaction.getType() + "   "   + transaction.getTitle() + "\n");
+//			}
+//			System.out.println("\n  There are no more transactions \n" );
+//		}
+//	}
+
+
+	public void listTickets() {
+		//String date  = getToken("Please enter the date for which you want records as mm/dd/yy");
+		theater.listTickets();
 	}
-
-
-
 
 
 
@@ -622,8 +627,6 @@ public class UserInterface {
 			break;
 			case STORE_DATA:              save();
 			break;
-
-
 			case BUYTICKET :	issueTickets();
 			break;
 			case BUYADVTICKET: issueAdvTickets();
@@ -632,7 +635,7 @@ public class UserInterface {
 			break;
 			case PAYPRODUCER :	payProducer();
 			break;		
-			case TRANSACTIONS : getTransactions();
+			case TRANSACTIONS : listTickets();
 				break;
 			case HELP:              help();
 			break;
