@@ -93,7 +93,7 @@ public class Ticket implements Serializable, Matchable<String> {
 	 */
 	public String getDate() {
 		
-		return date.get(Calendar.MONTH) + "/" + date.get(Calendar.DATE) + "/"
+		return date.get(Calendar.MONTH)+ 1 + "/" + date.get(Calendar.DATE) + "/"
 				+ date.get(Calendar.YEAR);
 	}
 

@@ -79,7 +79,7 @@ public class Show implements Serializable, Matchable<String>{
 	 * @return show info
 	 */
 	public String toString() {
-		String string = "Show Title: " + showTitle + " start dates: " + start + " end date: " + end;
+		String string = "Show Title: " + showTitle + " Start date: " + start + " End date: " + end;
 		return string;
 	}
 

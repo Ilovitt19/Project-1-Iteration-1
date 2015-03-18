@@ -67,7 +67,7 @@ public class TicketList extends ItemList<Ticket, String> implements Serializable
 	}
 
 	/**
-	 * Prints a list of the shows
+	 * Prints a list of the tickets
 	 */
 	public void listTickets(String date){
 
