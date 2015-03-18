@@ -27,11 +27,13 @@ import java.util.GregorianCalendar;
  * @author Brahma Dathan
  *
  */
-public class Ticket implements Serializable {
+public class Ticket implements Serializable, Matchable<String> {
 	private static final long serialVersionUID = 1L;
+	private String id;
 	private Calendar date;
 	private String type;
 	private double price;
+	private final String TICKET_STRING = "T";
 
 
 	/**
@@ -40,8 +42,8 @@ public class Ticket implements Serializable {
 	 * 
 	 * @param type
 	 *            The type of transaction
-	 * @param title
-	 *            The title of the book
+	 * @param price
+	 *            The price of the ticket
 	 * 
 	 */
 	
@@ -50,6 +52,7 @@ public class Ticket implements Serializable {
 		this.price = price;
 		date = new GregorianCalendar();
 		date.setTimeInMillis(System.currentTimeMillis());
+		id = TICKET_STRING + TicketIdServer.instance().getId();
 	}
 
 	/**
@@ -101,5 +104,10 @@ public class Ticket implements Serializable {
 	@Override
 	public String toString() {
 		return (type + "   " + price);
+	}
+
+	@Override
+	public boolean matches(String key) {
+		return id.equals(key);
 	}
 }

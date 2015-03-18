@@ -8,7 +8,7 @@ import java.util.List;
  *
  * */
 
-public class Customer implements Serializable {
+public class Customer implements Serializable, Matchable<String> {
 	private static final long serialVersionUID = 1L;
 	private String name;
 	private String address;
@@ -199,4 +199,8 @@ public class Customer implements Serializable {
 		return string + " ]";
 	}
 
+	@Override
+	public boolean matches(String key) {
+		return customerId.equals(key);
+	}
 }

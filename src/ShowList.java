@@ -4,9 +4,8 @@ import java.text.ParseException;
 import java.util.*;
 
 
-public class ShowList implements Serializable {
+public class ShowList extends ItemList<Show, String> implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private List shows = new LinkedList();
 	private static ShowList showlist;
 
 	private ShowList() {
@@ -30,7 +29,7 @@ public class ShowList implements Serializable {
 	 * @return true iff the show could be inserted. Currently always true
 	 */
 	public boolean insertShow(Show show) {
-		shows.add(show);
+		super.add(show);
 		return true;
 	}
 	/**
@@ -39,7 +38,7 @@ public class ShowList implements Serializable {
 	 * if the show is found, the method returns the show
 	 */
 	public Show search(String producerId) throws ParseException {
-		for (Iterator iterator = shows.iterator(); iterator.hasNext(); ) {
+		for (Iterator iterator = super.iterator(); iterator.hasNext(); ) {
 			Show show = (Show) iterator.next();
 			if (show.getProducerId().equals(producerId) && show.isValid()) {
 				return show;
@@ -55,10 +54,10 @@ public class ShowList implements Serializable {
 	
 	
 	
-	public Show searchTitle(String customerId) throws ParseException {
-		for (Iterator iterator = shows.iterator(); iterator.hasNext(); ) {
+	public Show searchTitle(String showTitle) throws ParseException {
+		for (Iterator iterator = super.iterator(); iterator.hasNext(); ) {
 			Show show = (Show) iterator.next();
-			if (show.getTitle().equals(customerId) && show.isValid()) {
+			if (show.getTitle().equals(showTitle) && show.isValid()) {
 				return show;
 			}
 		}
@@ -75,7 +74,7 @@ public class ShowList implements Serializable {
 	 * @return iterator to the collection
 	 */
 	public Iterator getShows() {
-		return shows.iterator();
+		return super.iterator();
 	}
 	/**
 	 * writes objects to file
@@ -117,11 +116,11 @@ public class ShowList implements Serializable {
 	 */
 	public void listShows(){
 
-		if(shows.isEmpty()){
+		if(super.isEmpty()){
 			System.out.println("No shows available");
 		}
 		else {
-			for (Iterator iterator = shows.iterator(); iterator.hasNext();){
+			for (Iterator iterator = super.iterator(); iterator.hasNext();){
 				Show show = (Show)iterator.next();
 				System.out.println(show);
 
@@ -134,6 +133,6 @@ public class ShowList implements Serializable {
 	 * @return string
 	 */
 	public String toString() {
-		return shows.toString();
+		return super.toString();
 	}
 }

@@ -12,11 +12,10 @@ import java.util.List;
  * stores shows
  *
  */
-public class Show implements Serializable{
+public class Show implements Serializable, Matchable<String>{
 	private static final long serialVersionUID = 1L;
 	private String showTitle;
 	private String producerId;
-	private Calendar date;
 	private String start;
 	private String end;
 	private Double ticketPrice;
@@ -27,7 +26,8 @@ public class Show implements Serializable{
 	 *
 	 * @param showTitle
 	 * @param producerId
-	 * @param duration
+	 * @param start
+	 * @param ticketPrice
 	 */
 	public Show(String showTitle, String producerId, String start, String end, double ticketPrice) {
 		this.showTitle = showTitle;
@@ -43,13 +43,7 @@ public class Show implements Serializable{
 	public String getTitle() {
 		return showTitle;
 	}
-	/**
-	 * gets show date
-	 * @return calendar date
-	 */
-	public Calendar getDate() {
-		return date;
-	}
+
 	/**
 	 * test if date is in range
 	 * @return true or false boolean
@@ -87,6 +81,11 @@ public class Show implements Serializable{
 	public String toString() {
 		String string = "Show Title: " + showTitle + " start dates: " + start + " end date: " + end;
 		return string;
+	}
+
+	@Override
+	public boolean matches(String key) {
+		return showTitle.equals(key);
 	}
 }
 

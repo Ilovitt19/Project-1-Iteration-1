@@ -1,14 +1,14 @@
 import java.io.IOException;
+import java.io.Serializable;
 import java.text.ParseException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 
-public class TicketList {
+public class TicketList extends ItemList<Ticket, String> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private List tickets = new LinkedList();
 	private static TicketList ticketList;
 
 	private TicketList() {
@@ -27,22 +27,15 @@ public class TicketList {
 	}
 
 	public boolean insertShow(Ticket ticket) {
-		tickets.add(ticket);
-		return true;
+		return super.add(ticket);
 	}
 
-	public Ticket search(String date) throws ParseException {
-		for (Iterator iterator = tickets.iterator(); iterator.hasNext(); ) {
-			Ticket show = ( Ticket ) iterator.next();
-			if ( show.getDate().equals( date ) ) {
-				return show;
-			}
-		}
-		return null;
+	public Ticket search(String ticketId) throws ParseException {
+		return super.search(ticketId);
 	}
 
 	public Iterator getShows() {
-		return tickets.iterator();
+		return super.iterator();
 	}
 
 	private void writeObject(java.io.ObjectOutputStream output) {
@@ -78,16 +71,16 @@ public class TicketList {
 	 */
 	public void listTickets(String date){
 
-		if(tickets.isEmpty()){
+		if(super.isEmpty()){
 			System.out.println("No tickets available");
 		}
 		else {
-			System.out.println("Tickets Prchased: ");
-			for (Iterator iterator = tickets.iterator(); iterator.hasNext();){
+			System.out.println("Tickets Purchased: ");
+			for (Iterator iterator = super.iterator(); iterator.hasNext();){
 				Ticket ticket = (Ticket)iterator.next();
 				
 				if(ticket.getDate().equals((date))) {
-					//System.out.println("Tickets Prchased: ");
+					//System.out.println("Tickets Purchased: ");
 					System.out.println(ticket);
 				}
 			}
@@ -101,6 +94,6 @@ public class TicketList {
 	 * @return string
 	 */
 	public String toString() {
-		return tickets.toString();
+		return super.toString();
 	}
 }

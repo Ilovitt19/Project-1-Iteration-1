@@ -9,11 +9,10 @@ import java.util.List;
  *
  */
 
-public class CustomerList implements Serializable {
+public class CustomerList extends ItemList<Customer, String> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private List customers = new LinkedList();
 	private static CustomerList customerList;
 
 	/**
@@ -40,8 +39,7 @@ public class CustomerList implements Serializable {
 	 * @return true or false boolean
 	 */
 	public boolean addCustomer(Customer customer) {
-		customers.add(customer);
-		return true;
+		return super.add(customer);
 	}
 
 	/**
@@ -55,7 +53,7 @@ public class CustomerList implements Serializable {
 		if (customer == null) {
 			return false;
 		} else {
-			return customers.remove(customer);
+			return super.remove(customer);
 		}
 
 	}
@@ -65,7 +63,7 @@ public class CustomerList implements Serializable {
 	 * @return customer object
 	 */
 	public Customer search(String customerId) {
-		for (Iterator iterator = customers.iterator(); iterator.hasNext(); ) {
+		for (Iterator iterator = super.iterator(); iterator.hasNext(); ) {
 			Customer customer = (Customer) iterator.next();
 			if (customer.getCustomerId().equals(customerId)) {
 				return customer;
@@ -113,11 +111,11 @@ public class CustomerList implements Serializable {
 	 */
 	public void listCustomers(){
 
-		if(customers.isEmpty()){
+		if(super.isEmpty()){
 			System.out.println("No customers available");
 		}
 		else {
-			for (Iterator iterator = customers.iterator(); iterator.hasNext();){
+			for (Iterator iterator = super.iterator(); iterator.hasNext();){
 				Customer customer = (Customer)iterator.next();
 				System.out.println(customer);
 
@@ -139,7 +137,7 @@ public class CustomerList implements Serializable {
 
 	@Override
 	public String toString() {
-		return customers.toString();
+		return super.toString();
 	}
 
 }
