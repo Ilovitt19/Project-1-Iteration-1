@@ -232,7 +232,7 @@ public class Theater implements Serializable {
 		Customer customer = customerList.search(customerId);
 		Show show = showList.searchTitle(showTitle);
 		
-		Ticket ticket = new Ticket("Regular", show.getPrice());
+		Ticket ticket = new Ticket("Regular Ticket", show.getPrice());
 		if (customer == null || show == null) {
 			return(null);
 		}
@@ -247,46 +247,40 @@ public class Theater implements Serializable {
 	}
 
 
-	public Show issueAdvShow(String customerId, String showTitle) throws ParseException {
-		Show show = showList.searchTitle(showTitle);
-		if (show == null) {
-			return(null);
-		}
-		//	    if (show.getBorrower() != null) {
-		//	      return(null);
-		//	    }
+	public Show issueAdvShow(String showTitle, String customerId, String quantity, String card, String date) throws ParseException {
 		Customer customer = customerList.search(customerId);
-		if (customer == null) {
+		Show show = showList.searchTitle(showTitle);
+		
+		Ticket ticket = new Ticket("Advance Ticket", show.getPrice());
+		if (customer == null || show == null) {
 			return(null);
 		}
-		//	    if (!(show.issue(customer) && customer.issue(show))) {
-		//	      return null;
-		//	    }
-		if (!(customer.issueAdv(show))) {
+
+		if (!(customer.issueAdv(show, ticket))) {
 			return null;
+
 		}
-		return(show);	
+			ticketList.insertShow(ticket);
+			return(show);
+		
 	}
 
-	public Show issueStuAdvShow(String customerId, String showTitle) throws ParseException {
-		Show show = showList.searchTitle(showTitle);
-		if (show == null) {
-			return(null);
-		}
-		//	    if (show.getBorrower() != null) {
-		//	      return(null);
-		//	    }
+	public Show issueStuAdvShow(String showTitle, String customerId, String quantity, String card, String date) throws ParseException {
 		Customer customer = customerList.search(customerId);
-		if (customer == null) {
+		Show show = showList.searchTitle(showTitle);
+		
+		Ticket ticket = new Ticket("Student Advance Ticket", show.getPrice());
+		if (customer == null || show == null) {
 			return(null);
 		}
-		//	    if (!(show.issue(customer) && customer.issue(show))) {
-		//	      return null;
-		//	    }
-		if (!(customer.issueAdv(show))) {
+
+		if (!(customer.issueStuAdv(show, ticket))) {
 			return null;
+
 		}
-		return(show);	
+			ticketList.insertShow(ticket);
+			return(show);
+		
 	}
 
 //	public Ticket getTransactions(Calendar date) {

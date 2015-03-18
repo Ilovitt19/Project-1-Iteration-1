@@ -462,7 +462,7 @@ public class UserInterface {
 				String card = getToken("Enter the customers credit card number");
 				String date = getToken("Enter the date for the show viewing");
 				
-				result = theater.issueShowTickets(showTitle, customerID, quantity, card, date);
+				result = theater.issueAdvShow(showTitle, customerID, quantity, card, date);
 				if (result != null){
 					
 					double price = (result.getPrice() * 0.7) * (Double.parseDouble(quantity));
@@ -485,6 +485,7 @@ public class UserInterface {
 	}
 
 	public void issueStuAdvTickets() throws ParseException {
+		System.out.println( "Student must show a valid Id." );
 		Show result;
 		String showTitle = getToken("Enter show title");
 		String customerID = getToken("Enter customer id");

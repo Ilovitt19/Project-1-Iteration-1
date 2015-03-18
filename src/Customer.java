@@ -40,19 +40,29 @@ public class Customer implements Serializable {
 	
 	  public boolean issueTicket(Show show, Ticket ticket) {
 		    if (showsPurchased.add(show)) {
-		      transactions.add(new Ticket(" Regular Ticket Purchased ", show.getPrice()));
+		      transactions.add(ticket);			//new Ticket(" Regular Ticket Purchased ", show.getPrice()));
 		      return true;
 		    }
 		    return false;
 		  }
 	  
-	  public boolean issueAdv(Show ticket) {
-		    if (showsPurchased.add(ticket)) {
-			      transactions.add(new Transaction ("Ticket Purchased ", ticket.getTitle()));
+	  public boolean issueAdv(Show show, Ticket ticket) {
+		    if (showsPurchased.add(show)) {
+			      transactions.add(ticket);
 			      return true;
 			    }
 			    return false;
 			  }
+	  
+	  public boolean issueStuAdv(Show show, Ticket ticket) {
+		    if (showsPurchased.add(show)) {
+			      transactions.add(ticket);
+			      return true;
+			    }
+			    return false;
+			  }
+	  
+	  
 	
 	/**
 	 * adds a credit card to the credit cards list
