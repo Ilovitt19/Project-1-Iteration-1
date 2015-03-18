@@ -105,7 +105,7 @@ public class Ticket implements Serializable, Matchable<String> {
 	 */
 	@Override
 	public String toString() {
-		return (type + "   " + price);
+		return "ID: " + id + " Type: " + type + " Date: " + date + " Price: $" + price;
 	}
 
 	@Override

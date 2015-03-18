@@ -80,7 +80,6 @@ public class TicketList extends ItemList<Ticket, String> implements Serializable
 				Ticket ticket = (Ticket)iterator.next();
 				
 				if(ticket.getDate().equals((date))) {
-					//System.out.println("Tickets Purchased: ");
 					System.out.println(ticket);
 				}
 			}
