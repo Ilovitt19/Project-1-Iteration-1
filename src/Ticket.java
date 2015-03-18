@@ -18,7 +18,9 @@
  * and are not responsible for any loss or damage resulting from its use.  
  */
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -30,7 +32,7 @@ import java.util.GregorianCalendar;
 public class Ticket implements Serializable, Matchable<String> {
 	private static final long serialVersionUID = 1L;
 	private String id;
-	private Calendar date;
+	private String date;
 	private String type;
 	private double price;
 	private final String TICKET_STRING = "T";
@@ -39,34 +41,35 @@ public class Ticket implements Serializable, Matchable<String> {
 	/**
 	 * Creates the transaction with a given type and book title. The date is the
 	 * current date.
-	 * 
+	 *
 	 * @param type
 	 *            The type of transaction
 	 * @param price
 	 *            The price of the ticket
-	 * 
+	 *
 	 */
-	
+
 	public Ticket(String type, double price) {
 		this.type = type;
 		this.price = price;
-		date = new GregorianCalendar();
-		date.setTimeInMillis(System.currentTimeMillis());
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		date = sdf.format(new Date());
+
 		id = TICKET_STRING + TicketIdServer.instance().getId();
 	}
 
-	/**
-	 * Checks whether this transaction is on the given date
-	 * 
-	 * @param date
-	 *            The date for which transactions are being sought
-	 * @return true iff the dates match
-	 */
-	public boolean onDate(Calendar date) {
-		return ((date.get(Calendar.YEAR) == this.date.get(Calendar.YEAR))
-				&& (date.get(Calendar.MONTH) == this.date.get(Calendar.MONTH)) && (date
-					.get(Calendar.DATE) == this.date.get(Calendar.DATE)));
-	}
+//	/**
+//	 * Checks whether this transaction is on the given date
+//	 *
+//	 * @param date
+//	 *            The date for which transactions are being sought
+//	 * @return true iff the dates match
+//	 */
+//	public boolean onDate(Calendar date) {
+//		return ((date.get(Calendar.YEAR) == this.date.get(Calendar.YEAR))
+//				&& (date.get(Calendar.MONTH) == this.date.get(Calendar.MONTH)) && (date
+//					.get(Calendar.DATE) == this.date.get(Calendar.DATE)));
+//	}
 
 	/**
 	 * Returns the type field
@@ -93,8 +96,7 @@ public class Ticket implements Serializable, Matchable<String> {
 	 */
 	public String getDate() {
 		
-		return date.get(Calendar.MONTH)+ 1 + "/" + date.get(Calendar.DATE) + "/"
-				+ date.get(Calendar.YEAR);
+		return date;
 	}
 
 	/**

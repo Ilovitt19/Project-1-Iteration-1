@@ -558,7 +558,7 @@ public class UserInterface {
 
 
 	public void listTickets() {
-		String date  = getToken("Please enter the date for which you want records as mm/dd/yyyy");
+		String date  = getToken("Please enter the date for which you want records as dd-mm-yyyy");
 		theater.listTickets(date);
 	}
 
