@@ -66,13 +66,15 @@ public class Show implements Serializable, Matchable<String>{
 		return producerId;
 	}
 	
+	/**
+	 * returns the price of the ticket
+	 * @return
+	 */
+
 	public double getPrice() {
 		return ticketPrice;
 	}
-	
-	public void ticketPurchased(Ticket ticket) {
-		ticketsPurchased.add(ticket);
-	}
+
 
 	/**
 	 * Prints string of show info

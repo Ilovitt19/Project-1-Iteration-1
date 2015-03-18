@@ -47,28 +47,24 @@ public class ShowList extends ItemList<Show, String> implements Serializable {
 		return null;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	public Show searchTitle(String showTitle) throws ParseException {
+	/**
+	 * searches for a show by the shows title and returns
+	 * the show if it was found within the list.
+	 * @param title
+	 * @return
+	 * @throws ParseException
+	 */
+
+	public Show searchTitle(String title) throws ParseException {
 		for (Iterator iterator = super.iterator(); iterator.hasNext(); ) {
 			Show show = (Show) iterator.next();
-			if (show.getTitle().equals(showTitle) && show.isValid()) {
+			if (show.getTitle().equals(title) && show.isValid()) {
 				return show;
 			}
 		}
 		return null;
 	}
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * Returns an iterator to all shows
 	 * @return iterator to the collection

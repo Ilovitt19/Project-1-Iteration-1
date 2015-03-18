@@ -26,17 +26,41 @@ public class TicketList extends ItemList<Ticket, String> implements Serializable
 		}
 	}
 
-	public boolean insertShow(Ticket ticket) {
+	/**
+	 * inserts a new ticket into the ticket collection
+	 * @param ticket
+	 * @return
+	 */
+
+	public boolean insertTicket(Ticket ticket) {
 		return super.add(ticket);
 	}
+
+	/**
+	 * searches for tickets within the collection by comparing dates.
+	 * if the dates match then the method returns each matching ticket.
+	 * @param ticketId
+	 * @return
+	 * @throws ParseException
+	 */
 
 	public Ticket search(String ticketId) throws ParseException {
 		return super.search(ticketId);
 	}
 
-	public Iterator getShows() {
+	/**
+	 * returns the all the tickets.
+	 * @return
+	 */
+
+	public Iterator getTickets() {
 		return super.iterator();
 	}
+
+	/**
+	 * method writes to a file
+	 * @param output
+	 */
 
 	private void writeObject(java.io.ObjectOutputStream output) {
 		try {
@@ -46,6 +70,11 @@ public class TicketList extends ItemList<Ticket, String> implements Serializable
 			System.out.println(ioe);
 		}
 	}
+
+	/**
+	 * method reads from a file
+	 * @param input
+	 */
 
 	private void readObject(java.io.ObjectInputStream input) {
 		try {
@@ -78,7 +107,7 @@ public class TicketList extends ItemList<Ticket, String> implements Serializable
 			System.out.println("Tickets Purchased: ");
 			for (Iterator iterator = super.iterator(); iterator.hasNext();){
 				Ticket ticket = (Ticket)iterator.next();
-				
+
 				if(ticket.getDate().equals((date))) {
 					System.out.println(ticket);
 				}

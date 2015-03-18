@@ -19,14 +19,12 @@
  */
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
+
 
 /**
  * Represents a single Transaction (issue, renew, etc.)
- * 
- * @author Brahma Dathan
+
  *
  */
 public class Ticket implements Serializable, Matchable<String> {
@@ -39,7 +37,7 @@ public class Ticket implements Serializable, Matchable<String> {
 
 
 	/**
-	 * Creates the transaction with a given type and book title. The date is the
+	 * Creates the ticket with a given type and show price. The date is the
 	 * current date.
 	 *
 	 * @param type
@@ -100,7 +98,7 @@ public class Ticket implements Serializable, Matchable<String> {
 	}
 
 	/**
-	 * String form of the transaction
+	 * String form of the ticket
 	 * 
 	 */
 	@Override

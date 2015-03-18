@@ -20,6 +20,7 @@ public class Customer implements Serializable, Matchable<String> {
 	private List creditCards = new LinkedList();
 	private List transactions = new LinkedList();
 	private List showsPurchased = new LinkedList();
+
 	/**
 	 * Constructor for the customer class
 	 * @param name

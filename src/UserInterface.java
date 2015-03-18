@@ -25,7 +25,7 @@ import java.text.*;
 import java.io.*;
 /**
  * UserInterface
- * This class implements the user interface for the Library project.
+ * This class implements the user interface for the Theater project.
  * The commands are encoded as integers using a number of
  * static final variables. A number of utility methods exist to
  * make it easier to parse the input.
@@ -193,7 +193,7 @@ public class UserInterface {
 		System.out.println(BUYADVTICKET + " to preorder a ticket for a show");
 		System.out.println(BUYSTUADVTICKET + " to preorder a student ticket.");
 		System.out.println(PAYPRODUCER + " to pay a producer a share.");
-		System.out.println(TRANSACTIONS + " to print transactions on a certain day");
+		System.out.println(TRANSACTIONS + " to print tickets sold on a certain day");
 		System.out.println(HELP + " for help");
 	}
 	/**
@@ -334,7 +334,7 @@ public class UserInterface {
 	/**
 	 * Method to be called for removing a credit card.
 	 * Prompts the user for the appropriate id and
-	 * uses the appropriate Theater method for removing the producer.
+	 * uses the appropriate Theater method for removing the credit card.
 	 *
 	 */
 	public void removeCreditCard() {
@@ -402,6 +402,13 @@ public class UserInterface {
 		theater.listShows();
 	}
 
+	/**
+	 * Method used for issuing a regular ticket to a particular customer.
+	 * Prompts the user for the appropriate values and
+	 * uses the appropriate Theater method for issuing a regular ticket to a customer.
+	 * @throws ParseException
+	 *
+	 */
 
 	public void issueTickets() throws ParseException {
 		Show result;
@@ -444,6 +451,14 @@ public class UserInterface {
 		
 	}
 
+	/**
+	 * Method used for issuing an advance ticket to a particular customer.
+	 * Prompts the user for the appropriate values and
+	 * uses the appropriate Theater method for issuing an advance ticket to a customer.
+	 * @throws ParseException
+	 *
+	 */
+
 	public void issueAdvTickets() throws ParseException {
 		Show result;
 		String showTitle = getToken("Enter show title");
@@ -483,6 +498,14 @@ public class UserInterface {
 			} while (true);
 		
 	}
+
+	/**
+	 * Method used for issuing a student advance ticket to a particular customer.
+	 * Prompts the user for the appropriate values and
+	 * uses the appropriate Theater method for issuing a student advance ticket to a customer.
+	 * @throws ParseException
+	 *
+	 */
 
 	public void issueStuAdvTickets() throws ParseException {
 		System.out.println( "Student must show a valid Id." );
@@ -525,6 +548,13 @@ public class UserInterface {
 		
 	}
 
+	/**
+	 * Method used for paying an amount to a customer.
+	 * Prompts the user for the appropriate values, producer Id,  and
+	 * uses the appropriate Theater method for issuing an advance ticket to a customer.
+	 * @throws ParseException
+	 *
+	 */
 
 	private void payProducer() {
 
@@ -540,22 +570,13 @@ public class UserInterface {
 		System.out.println(result);
 	} 
 
-//	public void getTransactions() {
-//		Iterator result;
-//		//		    String customerID = getToken("Enter member id");
-//		Calendar date  = getDate("Please enter the date for which you want records as mm/dd/yy");
-//		result = (Iterator) theater.getTransactions(date);
-//		if (result == null) {
-//			System.out.println("Nothing purchased");
-//		} else {
-//			while(result.hasNext()) {
-//				Transaction transaction = (Transaction) result.next();
-//				System.out.println(transaction.getType() + "   "   + transaction.getTitle() + "\n");
-//			}
-//			System.out.println("\n  There are no more transactions \n" );
-//		}
-//	}
 
+	/**
+	 * Method to be called for listing the tickets sold on a certain date.
+	 * Method prompts the user for the apropriate values, date, and
+	 * uses the appropriate Theater method for displaying all tickets sold on a certain day.
+	 *
+	 */
 
 	public void listTickets() {
 		String date  = getToken("Please enter the date for which you want records as dd-mm-yyyy");
@@ -638,7 +659,7 @@ public class UserInterface {
 			case PAYPRODUCER :	payProducer();
 			break;		
 			case TRANSACTIONS : listTickets();
-				break;
+			break;
 			case HELP:              help();
 			break;
 			}

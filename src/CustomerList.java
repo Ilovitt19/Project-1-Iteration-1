@@ -123,17 +123,10 @@ public class CustomerList extends ItemList<Customer, String> implements Serializ
 		}
 	}
 	
-	public void listCustomerTickets() {
-//		if(customers.isEmpty()){
-//			System.out.println("No customers available");
-//		}
-//		else {
-//			for (Iterator iterator = customers.iterator(); iterator.hasNext();){
-//				Customer customer = (Customer)iterator.next();
-//				if(customer.hasTicket(date))
-//					return ticket;
-//		}
-	}
+	/**
+	 * prints all the information of each customer to a string by calling
+	 * the to string from customer class
+	 */
 
 	@Override
 	public String toString() {

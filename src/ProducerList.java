@@ -117,6 +117,11 @@ public class ProducerList extends ItemList<Producer, String> implements Serializ
 		}
 	}
 
+	/**
+	 * returns the string of all producers by calling the
+	 * method from the producer class
+	 */
+
 	@Override
 	public String toString() {
 		return super.toString();

@@ -172,7 +172,9 @@ public class Theater implements Serializable {
 	 * Method to add a show to ShowList
 	 * @param title the title of the show
 	 * @param producerId ID of the show producer
-	 * @param duration
+	 * @param start
+	 * @param end
+	 * @param ticket
 	 * @return
 	 */
 	public Show addShow(String title, String producerId, String start, String end, String ticket) {
@@ -228,10 +230,21 @@ public class Theater implements Serializable {
 		}
 	}
 
+	/**
+	 * Method to add a ticket to ticket list
+	 * @param showTitle; used to search for a show, and attach the ticket item to the show being purchased
+	 * @param customerId; used to search for the customer
+	 * @param quantity; used to calculate the total cost of the tickets being purchased
+	 * @param card; the credit card being used by the customer to purchase the tickets.
+	 * @param date; the date at which the potential customer would like to see the show; the date value
+	 * 				is compared to the showing availiability of the show.
+	 * @return	returns the show, if it was successfully purchased
+	 * @throws ParseException
+	 */
+
 	public Show issueShowTickets(String showTitle, String customerId, String quantity, String card, String date) throws ParseException {
 		Customer customer = customerList.search(customerId);
 		Show show = showList.searchTitle(showTitle);
-		
 		Ticket ticket = new Ticket("Regular Ticket", show.getPrice());
 		if (customer == null || show == null) {
 			return(null);
@@ -241,16 +254,27 @@ public class Theater implements Serializable {
 			return null;
 
 		}
-			ticketList.insertShow(ticket);
+		System.out.println("Ticket Purchased on: " + ticket.getDate());
+			ticketList.insertTicket(ticket);
 			return(show);
 		
 	}
 
+	/**
+	 * Method to add a ticket to ticket list
+	 * @param showTitle; used to search for a show, and attach the ticket item to the show being purchased
+	 * @param customerId; used to search for the customer
+	 * @param quantity; used to calculate the total cost of the tickets being purchased
+	 * @param card; the credit card being used by the customer to purchase the tickets.
+	 * @param date; the date at which the potential customer would like to see the show; the date value
+	 * 				is compared to the showing availiability of the show.
+	 * @return	returns the show, if it was successfully purchased
+	 * @throws ParseException
+	 */
 
 	public Show issueAdvShow(String showTitle, String customerId, String quantity, String card, String date) throws ParseException {
 		Customer customer = customerList.search(customerId);
 		Show show = showList.searchTitle(showTitle);
-		
 		Ticket ticket = new Ticket("Advance Ticket", show.getPrice());
 		if (customer == null || show == null) {
 			return(null);
@@ -260,15 +284,26 @@ public class Theater implements Serializable {
 			return null;
 
 		}
-			ticketList.insertShow(ticket);
+			ticketList.insertTicket(ticket);
 			return(show);
 		
 	}
 
+	/**
+	 * Method to add a ticket to ticket list
+	 * @param showTitle; used to search for a show, and attach the ticket item to the show being purchased
+	 * @param customerId; used to search for the customer
+	 * @param quantity; used to calculate the total cost of the tickets being purchased
+	 * @param card; the credit card being used by the customer to purchase the tickets.
+	 * @param date; the date at which the potential customer would like to see the show; the date value
+	 * 				is compared to the showing availiability of the show.
+	 * @return	returns the show, if it was successfully purchased
+	 * @throws ParseException
+	 */
+
 	public Show issueStuAdvShow(String showTitle, String customerId, String quantity, String card, String date) throws ParseException {
 		Customer customer = customerList.search(customerId);
 		Show show = showList.searchTitle(showTitle);
-		
 		Ticket ticket = new Ticket("Student Advance Ticket", show.getPrice());
 		if (customer == null || show == null) {
 			return(null);
@@ -278,29 +313,26 @@ public class Theater implements Serializable {
 			return null;
 
 		}
-			ticketList.insertShow(ticket);
+			ticketList.insertTicket(ticket);
 			return(show);
 		
 	}
 
-//	public Ticket getTransactions(Calendar date) {
-//		
-//		if (date == null) {
-//			return(null);
-//		}
-//		for (Iterator<Ticket> iterator = tickets.iterator(); iterator.hasNext(); ) {
-//			Ticket tick = (Ticket) iterator.next();
-//			if (tick.getDate().equals(date)) {
-//				return tick;
-//			}
-//		}
-//		return null;
-//	}
+	/**
+	 * Method is used to display all the tickets purchased on a certain day.
+	 * @param date
+	 */
 
 	public void listTickets(String date){
 		ticketList.listTickets(date);
 	}
 
+	/**
+	 * Method used to pay a producer a certain share.
+	 * @param producerID; used to search if the producer is in the system.
+	 * @param balance; used for adding to the producers balance.
+	 * @return; returns the producer item
+	 */
 
 
 
@@ -310,30 +342,37 @@ public class Theater implements Serializable {
 		return producer;
 	}
 
+	/**
+	 * Method is used to search for a producer, given the producers Id.
+	 * @param producerID
+	 * @return
+	 */
+
 	public Producer searchProducer(String producerID)	{
 		Producer producer = producerList.search(producerID);
 		return producer;
 	}
 
-	public Customer searchCustomer(String memberId) {
-		return customerList.search(memberId);
+	/**
+	 * Method is used to search for a customer, given the customer's Id.
+	 * @param customerId
+	 * @return
+	 */
+
+	public Customer searchCustomer(String customerId) {
+		return customerList.search(customerId);
 	}
+
+	/** method is used to search for a show, given the title of the show.
+	 *
+	 * @param title; used to search for a show via its title
+	 * @return; returns the show if it was found.
+	 * @throws ParseException
+	 */
 
 	public Show searchShowTitle(String title) throws ParseException {
 		return showList.searchTitle(title);
 	}
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 	/**
@@ -367,6 +406,11 @@ public class Theater implements Serializable {
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * to string method for displaying all of customerlist, producerlist and showlist; concatinated.
+	 *
+	 */
 
 	@Override
 	public String toString() {
