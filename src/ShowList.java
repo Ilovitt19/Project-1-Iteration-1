@@ -4,23 +4,20 @@ import java.text.ParseException;
 import java.util.*;
 
 
-public class ShowList implements Serializable {
+public class ShowList extends ItemList<Show, String> implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private List shows = new LinkedList();
 	private static ShowList showlist;
 
 	private ShowList() {
 	}
-	
 	/**
 	 * Supports the singleton pattern
 	 *
 	 * @return the singleton object
 	 */
-	
 	public static ShowList instance() {
-		if ( showlist == null ) {
-			return ( showlist = new ShowList() );
+		if (showlist == null) {
+			return ( showlist = new ShowList());
 		} else {
 			return showlist;
 		}
@@ -31,9 +28,8 @@ public class ShowList implements Serializable {
 	 * @param show the show to be inserted
 	 * @return true iff the show could be inserted. Currently always true
 	 */
-	
-	public boolean insertShow( Show show ) {
-		shows.add( show );
+	public boolean insertShow(Show show) {
+		super.add(show);
 		return true;
 	}
 	/**
@@ -41,11 +37,10 @@ public class ShowList implements Serializable {
 	 * and also checks to see if the show is playing (by calling isValid())
 	 * if the show is found, the method returns the show
 	 */
-	
-	public Show search( String producerId ) throws ParseException {
-		for ( Iterator iterator = shows.iterator(); iterator.hasNext(); ) {
-			Show show = ( Show ) iterator.next();
-			if ( show.getProducerId().equals(producerId) && show.isValid() ) {
+	public Show search(String producerId) throws ParseException {
+		for (Iterator iterator = super.iterator(); iterator.hasNext(); ) {
+			Show show = (Show) iterator.next();
+			if (show.getProducerId().equals(producerId) && show.isValid()) {
 				return show;
 			}
 		}
@@ -54,37 +49,34 @@ public class ShowList implements Serializable {
 	
 	/**
 	 * searches for a show by the shows title and returns
-	 * the show if it was found within the list.	
-	 * @param customerId
+	 * the show if it was found within the list.
+	 * @param title
 	 * @return
 	 * @throws ParseException
 	 */
-	
-	public Show searchTitle( String title ) throws ParseException {
-		for ( Iterator iterator = shows.iterator(); iterator.hasNext(); ) {
+
+	public Show searchTitle(String title) throws ParseException {
+		for (Iterator iterator = super.iterator(); iterator.hasNext(); ) {
 			Show show = (Show) iterator.next();
-			if ( show.getTitle().equals( title ) ) {
+			if (show.getTitle().equals(title) && show.isValid()) {
 				return show;
 			}
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Returns an iterator to all shows
 	 * @return iterator to the collection
 	 */
-	
 	public Iterator getShows() {
-		return shows.iterator();
+		return super.iterator();
 	}
-	
 	/**
 	 * writes objects to file
 	 * @param output
 	 */
-	
-	private void writeObject( java.io.ObjectOutputStream output ) {
+	private void writeObject(java.io.ObjectOutputStream output) {
 		try {
 			output.defaultWriteObject();
 			output.writeObject(showlist);
@@ -92,27 +84,25 @@ public class ShowList implements Serializable {
 			System.out.println(ioe);
 		}
 	}
-	
 	/**
 	 * reads file
 	 * @param input
 	 */
-	
-	private void readObject( java.io.ObjectInputStream input ) {
+	private void readObject(java.io.ObjectInputStream input) {
 		try {
-			if ( showlist != null ) {
+			if (showlist != null) {
 				return;
 			} else {
 				input.defaultReadObject();
-				if ( showlist == null ) {
-					showlist = ( ShowList ) input.readObject();
+				if (showlist == null) {
+					showlist = (ShowList) input.readObject();
 				} else {
 					input.readObject();
 				}
 			}
-		} catch( IOException ioe ) {
+		} catch(IOException ioe) {
 			System.out.println("in Catalog readObject \n" + ioe);
-		} catch( ClassNotFoundException cnfe ) {
+		} catch(ClassNotFoundException cnfe) {
 			cnfe.printStackTrace();
 		}
 	}
@@ -120,25 +110,25 @@ public class ShowList implements Serializable {
 	/**
 	 * Prints a list of the shows
 	 */
-	
 	public void listShows(){
-		if( shows.isEmpty() ){
+
+		if(super.isEmpty()){
 			System.out.println("No shows available");
 		}
 		else {
-			for ( Iterator iterator = shows.iterator(); iterator.hasNext(); ){
-				Show show = ( Show )iterator.next();
-				System.out.println( show );
+			for (Iterator iterator = super.iterator(); iterator.hasNext();){
+				Show show = (Show)iterator.next();
+				System.out.println(show);
+
 			}
 		}
+
 	}
-	
 	/**
 	 * returns string of show info
 	 * @return string
 	 */
-	
 	public String toString() {
-		return shows.toString();
+		return super.toString();
 	}
 }
