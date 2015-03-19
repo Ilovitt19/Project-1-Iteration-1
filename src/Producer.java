@@ -6,7 +6,7 @@ import java.util.List;
  * Stores producers
  *
  */
-public class Producer implements Serializable, Matchable<String> {
+public class Producer implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String name;
 	private String id;
@@ -16,7 +16,7 @@ public class Producer implements Serializable, Matchable<String> {
 	private static final String PRODUCER_STRING = "P";
 	private List showsProduced = new LinkedList();
 	/**
-	 * constructor for producer class
+	 * cunstructor for producer class
 	 * @param name
 	 * @param address
 	 * @param phone
@@ -26,6 +26,7 @@ public class Producer implements Serializable, Matchable<String> {
 		this.name = name;
 		this.address = address;
 		this.phone = phone;
+		id = PRODUCER_STRING;
 		id = PRODUCER_STRING + (ProducerIdServer.instance()).getId();
 	}
 	/**
@@ -105,12 +106,8 @@ public class Producer implements Serializable, Matchable<String> {
 	 */
 	@Override
 	public String toString() {
-		String string = "Producer name: " + name + " address: " + address + " id: " + id + " phone: " + phone + " balance: " + balance;
+		String string = "Producer name: " + name + " address: " + address + " id: " + id + " phone: " + phone + "balance: " + balance;
 		return string;
 	}
 
-	@Override
-	public boolean matches(String key) {
-		return id.equals(key);
-	}
 }

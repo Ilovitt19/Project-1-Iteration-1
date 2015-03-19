@@ -9,37 +9,44 @@ import java.util.List;
  *
  */
 
-public class CustomerList extends ItemList<Customer, String> implements Serializable {
+public class CustomerList implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	private List customers = new LinkedList();
 	private static CustomerList customerList;
 
 	/**
 	 * Private constructor for singleton pattern
 	 *
 	 */
+	
 	private CustomerList() {
 	}
+	
 	/**
 	 * Supports the singleton pattern
 	 *
 	 * @return the singleton object
 	 */
+	
 	public static CustomerList instance() {
-		if (customerList == null) {
-			return (customerList = new CustomerList());
+		if ( customerList == null ) {
+			return ( customerList = new CustomerList() );
 		} else {
 			return customerList;
 		}
 	}
+	
 	/**
 	 * adds a customer to the list
 	 * @param customer
 	 * @return true or false boolean
 	 */
-	public boolean addCustomer(Customer customer) {
-		return super.add(customer);
+	
+	public boolean addCustomer( Customer customer ) {
+		customers.add( customer );
+		return true;
 	}
 
 	/**
@@ -47,35 +54,39 @@ public class CustomerList extends ItemList<Customer, String> implements Serializ
 	 * @param customerId
 	 * @return true if completed
 	 */
-	public boolean removeCustomer(String customerId) {
+	
+	public boolean removeCustomer( String customerId ) {
 
-		Customer customer = search(customerId);
-		if (customer == null) {
+		Customer customer = search( customerId );
+		if ( customer == null ) {
 			return false;
 		} else {
-			return super.remove(customer);
+			return customers.remove(customer);
 		}
-
 	}
+	
 	/**
 	 * checks if a customer with the given id exists
 	 * @param customerId
 	 * @return customer object
 	 */
-	public Customer search(String customerId) {
-		for (Iterator iterator = super.iterator(); iterator.hasNext(); ) {
+	
+	public Customer search( String customerId ) {
+		for ( Iterator iterator = customers.iterator(); iterator.hasNext(); ) {
 			Customer customer = (Customer) iterator.next();
-			if (customer.getCustomerId().equals(customerId)) {
+			if ( customer.getCustomerId().equals( customerId ) ) {
 				return customer;
 			}
 		}
 		return null;
 	}
+	
 	/**
 	 * writes objects to file
 	 * @param output
 	 */
-	private void writeObject(java.io.ObjectOutputStream output) {
+	
+	private void writeObject( java.io.ObjectOutputStream output ) {
 		try {
 			output.defaultWriteObject();
 			output.writeObject(customerList);
@@ -83,25 +94,27 @@ public class CustomerList extends ItemList<Customer, String> implements Serializ
 			ioe.printStackTrace();
 		}
 	}
+	
 	/**
 	 * reads file
 	 * @param input
 	 */
-	private void readObject(java.io.ObjectInputStream input) {
+	
+	private void readObject( java.io.ObjectInputStream input ) {
 		try {
-			if (customerList != null) {
+			if ( customerList != null ) {
 				return;
 			} else {
 				input.defaultReadObject();
-				if (customerList == null) {
-					customerList = (CustomerList) input.readObject();
+				if ( customerList == null ) {
+					customerList = ( CustomerList ) input.readObject();
 				} else {
 					input.readObject();
 				}
 			}
-		} catch(IOException ioe) {
+		} catch( IOException ioe ) {
 			ioe.printStackTrace();
-		} catch(ClassNotFoundException cnfe) {
+		} catch( ClassNotFoundException cnfe ) {
 			cnfe.printStackTrace();
 		}
 	}
@@ -109,16 +122,15 @@ public class CustomerList extends ItemList<Customer, String> implements Serializ
 	/**
 	 * Prints a list of the customers
 	 */
+	
 	public void listCustomers(){
-
-		if(super.isEmpty()){
-			System.out.println("No customers available");
+		if( customers.isEmpty() ){
+			System.out.println( "No customers available" );
 		}
 		else {
-			for (Iterator iterator = super.iterator(); iterator.hasNext();){
-				Customer customer = (Customer)iterator.next();
-				System.out.println(customer);
-
+			for ( Iterator iterator = customers.iterator(); iterator.hasNext(); ){
+				Customer customer = ( Customer )iterator.next();
+				System.out.println( customer );
 			}
 		}
 	}
@@ -130,9 +142,8 @@ public class CustomerList extends ItemList<Customer, String> implements Serializ
 
 	@Override
 	public String toString() {
-		return super.toString();
+		return customers.toString();
 	}
-
 }
 
 

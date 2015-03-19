@@ -18,62 +18,60 @@
  * and are not responsible for any loss or damage resulting from its use.  
  */
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
- * Represents a single Transaction (issue, renew, etc.)
-
+ * Represents a single Ticket
+ * 
+ * @author Brahma Dathan
  *
  */
-public class Ticket implements Serializable, Matchable<String> {
+public class Ticket implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String id;
-	private String date;
+	private Calendar date;
 	private String type;
 	private double price;
-	private final String TICKET_STRING = "T";
 
 
 	/**
 	 * Creates the ticket with a given type and show price. The date is the
 	 * current date.
-	 *
+	 * 
 	 * @param type
 	 *            The type of transaction
-	 * @param price
-	 *            The price of the ticket
-	 *
+	 * @param title
+	 *            The title of the book
+	 * 
 	 */
-
-	public Ticket(String type, double price) {
+	
+	public Ticket( String type, double price ) {
 		this.type = type;
 		this.price = price;
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-		date = sdf.format(new Date());
-
-		id = TICKET_STRING + TicketIdServer.instance().getId();
+		date = new GregorianCalendar();
+		date.setTimeInMillis(System.currentTimeMillis());
 	}
 
-//	/**
-//	 * Checks whether this transaction is on the given date
-//	 *
-//	 * @param date
-//	 *            The date for which transactions are being sought
-//	 * @return true iff the dates match
-//	 */
-//	public boolean onDate(Calendar date) {
-//		return ((date.get(Calendar.YEAR) == this.date.get(Calendar.YEAR))
-//				&& (date.get(Calendar.MONTH) == this.date.get(Calendar.MONTH)) && (date
-//					.get(Calendar.DATE) == this.date.get(Calendar.DATE)));
-//	}
+	/**
+	 * Checks whether this ticket is on the given date
+	 * 
+	 * @param date
+	 *            The date for which tickets are being sought
+	 * @return true iff the dates match
+	 */
+	
+	public boolean onDate( Calendar date ) {
+		return ( ( date.get( Calendar.YEAR ) == this.date.get( Calendar.YEAR ) )
+				&& ( date.get( Calendar.MONTH ) == this.date.get(Calendar.MONTH ) ) && ( date
+					.get( Calendar.DATE ) == this.date.get( Calendar.DATE ) ) );
+	}
 
 	/**
 	 * Returns the type field
 	 * 
 	 * @return type field
 	 */
+	
 	public String getType() {
 		return type;
 	}
@@ -83,6 +81,7 @@ public class Ticket implements Serializable, Matchable<String> {
 	 * 
 	 * @return title field
 	 */
+	
 	public double getPrice() {
 		return price;
 	}
@@ -94,20 +93,17 @@ public class Ticket implements Serializable, Matchable<String> {
 	 */
 	public String getDate() {
 		
-		return date;
+		return date.get( Calendar.MONTH ) + "/" + date.get( Calendar.DATE ) + "/"
+				+ date.get( Calendar.YEAR );
 	}
 
 	/**
 	 * String form of the ticket
 	 * 
 	 */
+	
 	@Override
 	public String toString() {
-		return "ID: " + id + " Type: " + type + " Date: " + date + " Price: $" + price;
-	}
-
-	@Override
-	public boolean matches(String key) {
-		return id.equals(key);
+		return ( type + "   " + price );
 	}
 }
